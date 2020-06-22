@@ -1,0 +1,31 @@
+{
+	"game": {
+		"name": "Catan Quest",
+		"appid": "604655103",
+		"cid": "0"
+	},
+	"configs": [
+		{
+			"appid": "604655103",
+			"services": [
+				{
+					"service_id": "269",
+					"enable": false
+				},
+				{
+					"service_id": "270",
+					"enable": false
+				},
+				{
+					"service_id": "241",
+					"enable": false
+				},
+				{
+					"service_id": "242",
+					"enable": false
+				}
+			]
+		}
+	],
+	"needExecNative": true
+}

@@ -1,0 +1,13 @@
+# set file path ignore
+log/
+.gradle/
+.idea/
+build/
+bin/
+.vertx/
+out/
+classes/
+library/
+local/
+temp/
+version_generator.js
