@@ -103,17 +103,19 @@ cc.Class({
     checkBuildEnable: function() {
         jkr.Logger.debug("[0] checkBuildEnable.");
         // 地形判断
-        if (this.roleIndex >= 0) {
+        if (this.roleIndex >= 0 && this.roleIndex !== jkr.player.getMyRoleIndex()) {
             jkr.Logger.debug("city had owner.");
             return false;
         }
-        if (this.checkRoundHadCity()) {
-            jkr.Logger.debug("neighbor had city.");
-            return false;
-        }
-        if (!jkr.player.inMyPreRound() && !this.roundHadOwnRoad()) {
-            jkr.Logger.debug("round not have my road.");
-            return false;
+        if (this.roleIndex < 0) {
+            if (this.checkRoundHadCity()) {
+                jkr.Logger.debug("neighbor had city.");
+                return false;
+            }
+            if (!jkr.player.inMyPreRound() && !this.roundHadOwnRoad()) {
+                jkr.Logger.debug("round not have my road.");
+                return false;
+            }
         }
 
         // 状态机判断

@@ -157,7 +157,7 @@ let Player = cc.Class({
                 { name: 'toPre1',   from: 'colorChoosing',  to: 'preRound1',            desc: '第一轮放城和路'},
                 { name: 'toPre2',   from: 'preRound1',      to: 'preRound2',            desc: '第二轮放城和路'},
                 { name: 'throwDice',from: ['preRound2', 'roundEnd'],    to: 'throwing', desc: '扔骰子'},
-                { name: 'toOperate',  from: 'throwing',       to: 'operating',            desc: '操作'},
+                { name: 'toOperate',  from: 'throwing',     to: 'operating',            desc: '操作'},
                 { name: 'toNext',   from: 'operating',      to: 'roundEnd',             desc: '自己操作完毕, 下一个'},
             ],
             methods: {

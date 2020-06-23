@@ -156,7 +156,6 @@ cc.Class({
 
             jkr.player.costResource(1, 0, 0, 0, 1);
         }
-        jkr.Logger.debug("not player build time");
         return true;
     },
 
