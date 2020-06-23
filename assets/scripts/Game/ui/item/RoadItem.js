@@ -149,6 +149,12 @@ cc.Class({
                 jkr.gameScene.showTipsItemRender("不是自己的回合", 0.3);
                 return false;
             }
+            if (!jkr.player.checkResource(1, 0, 0, 0, 1)) {
+                jkr.gameScene.showTipsItemRender("资源不足.", 0.3);
+                return false;
+            }
+
+            jkr.player.costResource(1, 0, 0, 0, 1);
         }
         jkr.Logger.debug("not player build time");
         return true;

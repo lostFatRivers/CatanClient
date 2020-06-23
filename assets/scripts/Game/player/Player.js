@@ -364,6 +364,26 @@ let Player = cc.Class({
         }
         jkr.gameScene.showTipsItemRender("玩家: '" + roleInfo.roleName + "' 操作中...")
     },
+
+    // 检查资源是否足够
+    checkResource: function(needBrick = 0, needRice = 0, needSheep = 0, needStone = 0, needWood = 0) {
+        return !(this.selfResources.brick < needBrick
+            || this.selfResources.rice < needRice
+            || this.selfResources.sheep < needSheep
+            || this.selfResources.stone < needStone
+            || this.selfResources.wood < needWood);
+    },
+
+    // 消耗资源并同步
+    costResource: function(costBrick = 0, costRice = 0, costSheep = 0, costStone = 0, costWood = 0) {
+        this.selfResources.brick -= costBrick;
+        this.selfResources.rice -= costRice;
+        this.selfResources.sheep -= costSheep
+        this.selfResources.stone -= costStone;
+        this.selfResources.wood -= costWood;
+
+        this.refreshResourceView();
+    },
 });
 
 jkr.player = Player.getInstance();

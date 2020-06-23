@@ -135,6 +135,22 @@ cc.Class({
                 jkr.gameScene.showTipsItemRender("不是自己的回合", 0.3);
                 return false;
             }
+            if (this.cityType === -1) {
+                if (!jkr.player.checkResource(1, 1, 1, 0, 1)) {
+                    return false;
+                }
+            } else if (this.cityType === 0) {
+                if (!jkr.player.checkResource(0, 2, 0, 3, 0)) {
+                    return false;
+                }
+            }
+
+
+            if (this.cityType === -1) {
+                jkr.player.costResource(1, 1, 1, 0, 1);
+            } else if (this.cityType === 0) {
+                jkr.player.costResource(0, 2, 0, 3, 0);
+            }
         }
         jkr.Logger.debug("not player build time");
         return true;
