@@ -18018,7 +18018,7 @@
         1,
         1,
         1,
-        0
+        1
       ]
     },
     "_eulerAngles": {
@@ -18464,7 +18464,7 @@
         1,
         1,
         1,
-        0
+        1
       ]
     },
     "_eulerAngles": {
@@ -18773,7 +18773,7 @@
     },
     "component": "",
     "_componentId": "b6d6b+WpHhLBpTMptWQPBRH",
-    "handler": "onClickNext",
+    "handler": "onClickExchange",
     "customEventData": ""
   },
   {
@@ -19219,7 +19219,7 @@
     },
     "component": "",
     "_componentId": "b6d6b+WpHhLBpTMptWQPBRH",
-    "handler": "onClickNext",
+    "handler": "onClickSkill",
     "customEventData": ""
   },
   {

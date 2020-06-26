@@ -12,6 +12,7 @@ cc.Class({
         settingPrefab: cc.Prefab,
         roomDetailPrefab: cc.Prefab,
         buildConfirmPrefab: cc.Prefab,
+        exchangePrefab: cc.Prefab,
     },
 
     onLoadManager: function() {
@@ -210,6 +211,14 @@ cc.Class({
         this.closePage(jkr.pageConstant.PAGE_TYPE_BUILD_CONFIRM);
     },
 
+    showExchangePopUp: function(exchangeData) {
+        this.showPage(jkr.pageConstant.PAGE_TYPE_EXCHANGE, exchangeData);
+    },
+
+    hideExchangePopUp: function() {
+        this.closePage(jkr.pageConstant.PAGE_TYPE_EXCHANGE);
+    },
+
     update (dt) {
         this.curTime += dt;
         if (this.curTime >= 1) {
@@ -251,6 +260,13 @@ cc.Class({
                 pageType: jkr.pageConstant.PAGE_TYPE_BUILD_CONFIRM,
                 createPrefab: this.buildConfirmPrefab,
                 pageScript: "ConfirmBuildPopUp",
+                blackNodeType: jkr.pageConstant.BLACK_NODE_TYPE_NONE,
+                showAnimType: jkr.pageConstant.OPEN_PAGE_ANIMATION_OPACITY,
+            },
+            {
+                pageType: jkr.pageConstant.PAGE_TYPE_EXCHANGE,
+                createPrefab: this.exchangePrefab,
+                pageScript: "ExchangePopUp",
                 blackNodeType: jkr.pageConstant.BLACK_NODE_TYPE_NONE,
                 showAnimType: jkr.pageConstant.OPEN_PAGE_ANIMATION_OPACITY,
             },

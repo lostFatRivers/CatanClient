@@ -353,6 +353,14 @@ cc.Class({
         jkr.player.sendMessage(msg);
     },
 
+    onClickExchange: function() {
+        jkr.gameScene.showExchangePopUp({type: jkr.constant.exchangeType.player});
+    },
+
+    onClickSkill: function() {
+
+    },
+
     robResource: function() {
         jkr.gameScene.showTipsItemRender("海盗来了...", 0.5);
         let totalNum = jkr.player.getTotalResourceNum();

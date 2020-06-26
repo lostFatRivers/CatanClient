@@ -58,6 +58,11 @@ let GameConst = {
         smallCity: 101,
         bigCity: 102,
         road: 103
+    },
+
+    exchangeType: {
+        player: 1,
+        bank: 2
     }
 
 };
