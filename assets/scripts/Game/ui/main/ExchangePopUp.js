@@ -37,51 +37,86 @@ cc.Class({
 
         acceptBtnNode: cc.Node,
         refuseBtnNode: cc.Node,
+
+        playerBtnNode: cc.Node,
+        bankBtnNode: cc.Node,
+
+        playerBtnBgNode: cc.Node,
+        bankBtnBgNode: cc.Node,
+
+        stopNode: cc.Node,
+    },
+
+    registerGameListener: function() {
+        this.registerListener(jkr.GameEventType.EXCHANGE_SUCCESS, rIndex => this.onExchangeSuccess());
     },
 
     showPageBegan: function() {
+        this.outPureCount = 0;
+        this.inPureCount = 0;
+        if (this.data.type === jkr.constant.exchangeType.player) {
+            this.playerBtnNode.zIndex = -1;
+            this.bankBtnNode.zIndex = -2;
+            this.playerBtnBgNode.color = jkr.Utils.hex2color(jkr.constant.exchangeBtnColor.enable);
+            this.bankBtnBgNode.color = jkr.Utils.hex2color(jkr.constant.exchangeBtnColor.disable);
+        } else {
+            this.playerBtnNode.zIndex = -2;
+            this.bankBtnNode.zIndex = -1;
+            this.playerBtnBgNode.color = jkr.Utils.hex2color(jkr.constant.exchangeBtnColor.disable);
+            this.bankBtnBgNode.color = jkr.Utils.hex2color(jkr.constant.exchangeBtnColor.enable);
+        }
         this.ratioNode.active = this.data.type === jkr.constant.exchangeType.bank;
         this.confirmBtnNode.active = this.data.type !== jkr.constant.exchangeType.receive;
         this.cancelBtnNode.active = this.data.type !== jkr.constant.exchangeType.receive;
+        this.playerBtnNode.active = this.data.type !== jkr.constant.exchangeType.receive;
+        this.bankBtnNode.active = this.data.type !== jkr.constant.exchangeType.receive;
+
         this.acceptBtnNode.active = this.data.type === jkr.constant.exchangeType.receive;
         this.refuseBtnNode.active = this.data.type === jkr.constant.exchangeType.receive;
 
         if (this.data.type === jkr.constant.exchangeType.receive) {
-            this.inWoodNum = this.data.receiveExchangeInfo.inWoodNum;
-            this.inBrickNum = this.data.receiveExchangeInfo.inBrickNum;
-            this.inSheepNum = this.data.receiveExchangeInfo.inSheepNum;
-            this.inRiceNum = this.data.receiveExchangeInfo.inRiceNum;
-            this.inStoneNum = this.data.receiveExchangeInfo.inStoneNum;
+            this.resetAllResource(this.data.receiveExchangeInfo.inWoodNum, this.data.receiveExchangeInfo.inBrickNum,
+                    this.data.receiveExchangeInfo.inSheepNum, this.data.receiveExchangeInfo.inRiceNum,
+                    this.data.receiveExchangeInfo.inStoneNum, this.data.receiveExchangeInfo.outWoodNum,
+                    this.data.receiveExchangeInfo.outBrickNum, this.data.receiveExchangeInfo.outSheepNum,
+                    this.data.receiveExchangeInfo.outRiceNum, this.data.receiveExchangeInfo.outStoneNum);
 
-            this.outWoodNum = this.data.receiveExchangeInfo.outWoodNum;
-            this.outBrickNum = this.data.receiveExchangeInfo.outBrickNum;
-            this.outSheepNum = this.data.receiveExchangeInfo.outSheepNum;
-            this.outRiceNum = this.data.receiveExchangeInfo.outRiceNum;
-            this.outStoneNum = this.data.receiveExchangeInfo.outStoneNum;
             let roleIndex = this.data.receiveExchangeInfo.roleIndex;
             let roleData = jkr.player.getRoleData(roleIndex);
             this.exchangeLabel.string = roleData.roleName + "的交换请求";
         } else {
-            this.inWoodNum = 0;
-            this.inBrickNum = 0;
-            this.inSheepNum = 0;
-            this.inRiceNum = 0;
-            this.inStoneNum = 0;
-
-            this.outWoodNum = 0;
-            this.outBrickNum = 0;
-            this.outSheepNum = 0;
-            this.outRiceNum = 0;
-            this.outStoneNum = 0;
+            this.resetAllResource();
             this.exchangeLabel.string = "交换";
         }
+        this.refreshAllNumLabel();
+    },
+
+    onExchangeSuccess: function() {
+        this.resetAllResource();
+        this.refreshAllNumLabel();
+    },
+    
+    resetAllResource: function(inWoodNum = 0, inBrickNum = 0, inSheepNum = 0,
+                               inRiceNum = 0, inStoneNum = 0, outWoodNum = 0,
+                               outBrickNum = 0, outSheepNum = 0, outRiceNum = 0,
+                               outStoneNum = 0) {
+        this.inWoodNum = inWoodNum;
+        this.inBrickNum = inBrickNum;
+        this.inSheepNum = inSheepNum;
+        this.inRiceNum = inRiceNum;
+        this.inStoneNum = inStoneNum;
+
+        this.outWoodNum = outWoodNum;
+        this.outBrickNum = outBrickNum;
+        this.outSheepNum = outSheepNum;
+        this.outRiceNum = outRiceNum;
+        this.outStoneNum = outStoneNum;
+
         this.ownWoodNum = jkr.player.getResourceNum(jkr.constant.MAP_WOOD) + this.inWoodNum - this.outWoodNum;
         this.ownBrickNum = jkr.player.getResourceNum(jkr.constant.MAP_BRICK) + this.inBrickNum - this.outBrickNum;
         this.ownSheepNum = jkr.player.getResourceNum(jkr.constant.MAP_SHEEP) + this.inSheepNum - this.outSheepNum;
         this.ownRiceNum = jkr.player.getResourceNum(jkr.constant.MAP_RICE) + this.inRiceNum - this.outRiceNum;
         this.ownStoneNum = jkr.player.getResourceNum(jkr.constant.MAP_STONE) + this.inStoneNum - this.outStoneNum;
-
-        this.refreshAllNumLabel();
     },
 
     refreshAllNumLabel: function() {
@@ -128,6 +163,22 @@ cc.Class({
                 inStoneNum: this.inStoneNum
             };
             jkr.player.sendMessage(msg);
+        } else if (this.data.type === jkr.constant.exchangeType.bank) {
+            jkr.player.onExchangedResource({
+                outWoodNum: this.outWoodNum,
+                outBrickNum: this.outBrickNum,
+                outSheepNum: this.outSheepNum,
+                outRiceNum: this.outRiceNum,
+                outStoneNum: this.outStoneNum,
+
+                inWoodNum: this.inWoodNum,
+                inBrickNum: this.inBrickNum,
+                inSheepNum: this.inSheepNum,
+                inRiceNum: this.inRiceNum,
+                inStoneNum: this.inStoneNum
+            });
+            jkr.gameScene.showTipsItemRender("与银行交换成功", 0.3);
+            this.onExchangeSuccess();
         }
     },
 
@@ -136,7 +187,12 @@ cc.Class({
     },
 
     onClickAccept: function() {
-        jkr.gameScene.hideExchangePopUp();
+        if (this.ownWoodNum < 0 || this.ownBrickNum < 0 || this.ownSheepNum < 0
+            || this.ownRiceNum < 0 || this.ownStoneNum < 0) {
+            jkr.gameScene.showTipsItemRender("资源不足, 无法交换", 0.3);
+            return;
+        }
+        this.stopNode.active = true;
         let msg = {
             type: jkr.messageType.CS_ACCEPT_EXCHANGE,
             roleIndex: jkr.player.getMyRoleIndex(),
@@ -154,43 +210,59 @@ cc.Class({
     },
 
     onClickWoodAdd: function() {
-        this.sourceCommonAdd("WoodNum");
+        this.sourceCommonAdd("Wood");
     },
 
     onClickWoodSub: function() {
-        this.sourceCommonSub("WoodNum");
+        this.sourceCommonSub("Wood");
     },
 
     onClickBrickAdd: function() {
-        this.sourceCommonAdd("BrickNum");
+        this.sourceCommonAdd("Brick");
     },
 
     onClickBrickSub: function() {
-        this.sourceCommonSub("BrickNum");
+        this.sourceCommonSub("Brick");
     },
 
     onClickSheepAdd: function() {
-        this.sourceCommonAdd("SheepNum");
+        this.sourceCommonAdd("Sheep");
     },
 
     onClickSheepSub: function() {
-        this.sourceCommonSub("SheepNum");
+        this.sourceCommonSub("Sheep");
     },
 
     onClickRiceAdd: function() {
-        this.sourceCommonAdd("RiceNum");
+        this.sourceCommonAdd("Rice");
     },
 
     onClickRiceSub: function() {
-        this.sourceCommonSub("RiceNum");
+        this.sourceCommonSub("Rice");
     },
 
     onClickStoneAdd: function() {
-        this.sourceCommonAdd("StoneNum");
+        this.sourceCommonAdd("Stone");
     },
 
     onClickStoneSub: function() {
-        this.sourceCommonSub("StoneNum");
+        this.sourceCommonSub("Stone");
+    },
+    
+    onClickPlayer: function() {
+        if (this.data.type === jkr.constant.exchangeType.player) {
+            return;
+        }
+        this.data.type = jkr.constant.exchangeType.player;
+        this.showPageBegan();
+    },
+
+    onClickBank: function() {
+        if (this.data.type === jkr.constant.exchangeType.bank) {
+            return;
+        }
+        this.data.type = jkr.constant.exchangeType.bank;
+        this.showPageBegan();
     },
     
     sourceCommonAdd: function(sourceName) {
@@ -198,11 +270,27 @@ cc.Class({
             return;
         }
         if (this.data.type === jkr.constant.exchangeType.player) {
-            this["own" + sourceName] += 1;
-            if (this["out" + sourceName] > 0) {
-                this["out" + sourceName] -= 1;
+            this["own" + sourceName + "Num"] += 1;
+            if (this["out" + sourceName + "Num"] > 0) {
+                this["out" + sourceName + "Num"] -= 1;
             } else {
-                this["in" + sourceName] += 1;
+                this["in" + sourceName + "Num"] += 1;
+            }
+        } else if (this.data.type === jkr.constant.exchangeType.bank) {
+            // 可以收回
+            if (this["out" + sourceName + "Num"] > 0) {
+                let ratio = jkr.player.getSourceBankRatio(sourceName);
+                this["out" + sourceName + "Num"] -= ratio;
+                this["own" + sourceName + "Num"] += ratio;
+                this.outPureCount--;
+            } else {
+                if (this.outPureCount - this.inPureCount <= 0) {
+                    // 没有足够的点数
+                    return;
+                }
+                this["in" + sourceName + "Num"] += 1;
+                this["own" + sourceName + "Num"] += 1;
+                this.inPureCount++;
             }
         }
         this.refreshAllNumLabel();
@@ -213,14 +301,29 @@ cc.Class({
             return;
         }
         if (this.data.type === jkr.constant.exchangeType.player) {
-            if (this["own" + sourceName] <= 0) {
+            if (this["own" + sourceName + "Num"] <= 0) {
                 return;
             }
-            this["own" + sourceName] -= 1;
-            if (this["in" + sourceName] > 0) {
-                this["in" + sourceName] -= 1;
+            this["own" + sourceName + "Num"] -= 1;
+            if (this["in" + sourceName + "Num"] > 0) {
+                this["in" + sourceName + "Num"] -= 1;
             } else {
-                this["out" + sourceName] += 1;
+                this["out" + sourceName + "Num"] += 1;
+            }
+        } else if (this.data.type === jkr.constant.exchangeType.bank) {
+            // 可以退回
+            if (this["in" + sourceName + "Num"] > 0) {
+                this["in" + sourceName + "Num"] -= 1;
+                this["own" + sourceName + "Num"] -= 1;
+                this.inPureCount--;
+            } else {
+                let ratio = jkr.player.getSourceBankRatio(sourceName);
+                if (this["own" + sourceName + "Num"] < ratio) {
+                    return;
+                }
+                this["own" + sourceName + "Num"] -= ratio;
+                this["out" + sourceName + "Num"] += ratio;
+                this.outPureCount++;
             }
         }
         this.refreshAllNumLabel();

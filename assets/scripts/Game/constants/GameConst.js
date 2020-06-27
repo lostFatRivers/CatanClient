@@ -67,6 +67,11 @@ let GameConst = {
         bank: 2,
         // 收到玩家交换请求
         receive: 3,
+    },
+
+    exchangeBtnColor: {
+        enable: "#1D363B",
+        disable: "#0E1A1C",
     }
 
 };

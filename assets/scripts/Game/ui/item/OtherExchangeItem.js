@@ -30,6 +30,7 @@ cc.Class({
     },
 
     initOtherExchange: function(roleIndex) {
+        this.roleIndex = roleIndex;
         let roleData = jkr.player.getRoleData(roleIndex);
         this.playerNameLabel.string = roleData.roleName;
         this.bg1Sprite.color = jkr.Utils.hex2color(roleData.color);
@@ -60,11 +61,25 @@ cc.Class({
     },
 
     onClickSelect: function() {
+        if (this.status === 2) {
+            return;
+        }
         this.btnBgSprite.spriteFrame = this.selectBtnBgSpriteFrame;
+        this.host.clearOtherSelect(this.roleIndex);
     },
 
     unSelect: function() {
         this.btnBgSprite.spriteFrame = this.refuseBtnBgSpriteFrame;
+    },
+
+    acceptExchange: function() {
+        this.status = 1;
+        this.switchStatusIcon();
+    },
+
+    resumeExchange: function() {
+        this.status = 2;
+        this.switchStatusIcon();
     },
 
 });

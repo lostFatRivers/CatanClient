@@ -75,5 +75,9 @@ jkr.messageType = {
     // 拒绝资源交换
     CS_RESUME_EXCHANGE: 1037,
     SC_RESUME_EXCHANGE: 1038,
+
+    // 确认资源交换(完成)
+    CS_CONFIRM_EXCHANGE: 1038,
+    SC_CONFIRM_EXCHANGE: 1039,
 };
 

@@ -42,6 +42,10 @@ cc.Class({
     },
 
     sendBuildRoadMsg: function() {
+        let gameSM = jkr.player.getGameSM();
+        if (gameSM.is("operating")) {
+            jkr.player.costResource(1, 0, 0, 0, 1);
+        }
         jkr.gameScene.showLoadingCycle();
         let msg = {
             type: jkr.messageType.CS_BUILD_ROAD,
@@ -153,8 +157,6 @@ cc.Class({
                 jkr.gameScene.showTipsItemRender("资源不足.", 0.3);
                 return false;
             }
-
-            jkr.player.costResource(1, 0, 0, 0, 1);
         }
         return true;
     },

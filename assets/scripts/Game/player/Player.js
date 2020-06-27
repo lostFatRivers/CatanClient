@@ -312,6 +312,8 @@ let Player = cc.Class({
     },
 
     refreshResourceView: function() {
+        let selfRoleData = this.getRoleData(this.selfRoleIndex);
+        selfRoleData.sourceCardNum = this.getTotalResourceNum();
         this.syncInfoToAll();
         jkr.eventBus.dispatchEvent(jkr.GameEventType.ROLE_DATA_REFRESH + this.selfRoleIndex);
     },
@@ -383,6 +385,20 @@ let Player = cc.Class({
         this.selfResources.wood -= costWood;
 
         this.refreshResourceView();
+    },
+
+    onExchangedResource: function(exchangeData) {
+        this.selfResources.brick = this.selfResources.brick + exchangeData.inBrickNum - exchangeData.outBrickNum;
+        this.selfResources.rice = this.selfResources.rice + exchangeData.inRiceNum - exchangeData.outRiceNum;
+        this.selfResources.sheep = this.selfResources.sheep + exchangeData.inSheepNum - exchangeData.outSheepNum;
+        this.selfResources.stone = this.selfResources.stone + exchangeData.inStoneNum - exchangeData.outStoneNum;
+        this.selfResources.wood = this.selfResources.wood + exchangeData.inWoodNum - exchangeData.outWoodNum;
+
+        this.refreshResourceView();
+    },
+
+    getSourceBankRatio: function(sourceName) {
+        return 4;
     },
 });
 

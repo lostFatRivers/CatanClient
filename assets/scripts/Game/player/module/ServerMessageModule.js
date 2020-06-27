@@ -20,6 +20,10 @@ let ServerMessageModule = cc.Class({
         jkr.handlerManager.registerHandler(jkr.messageType.SC_TURN_NEXT_ONE, msg => this.onTurnNext(msg));
         jkr.handlerManager.registerHandler(jkr.messageType.SC_SYNC_ROLE_VIEW, msg => this.onInfoUpdate(msg));
         jkr.handlerManager.registerHandler(jkr.messageType.SC_START_EXCHANGE, msg => this.onStartExchange(msg));
+        jkr.handlerManager.registerHandler(jkr.messageType.SC_CLOSE_EXCHANGE, msg => this.onCloseExchange(msg));
+        jkr.handlerManager.registerHandler(jkr.messageType.SC_ACCEPT_EXCHANGE, msg => this.onAcceptExchange(msg));
+        jkr.handlerManager.registerHandler(jkr.messageType.SC_RESUME_EXCHANGE, msg => this.onResumeExchange(msg));
+        jkr.handlerManager.registerHandler(jkr.messageType.SC_CONFIRM_EXCHANGE, msg => this.onConfirmExchange(msg));
     },
 
     init: function (player) {
@@ -139,7 +143,47 @@ let ServerMessageModule = cc.Class({
             jkr.gameScene.showExchangePopUp({
                 type: jkr.constant.exchangeType.receive,
                 receiveExchangeInfo: msg
-            })
+            });
         }
+    },
+
+    onCloseExchange: function(msg) {
+        jkr.Logger.debug("onCloseExchange success.", JSON.stringify(msg));
+        if (msg.roleIndex === jkr.player.getMyRoleIndex()) {
+            jkr.gameScene.hideOtherExchangeBackPopUp();
+        } else {
+            jkr.gameScene.hideExchangePopUp();
+        }
+        if (msg.isExchanged) {
+            this.showExchangeSuccessTips(msg.roleIndex, msg.targetIndex);
+        }
+    },
+
+    onAcceptExchange: function(msg) {
+        jkr.Logger.debug("onAcceptExchange success.", JSON.stringify(msg));
+        jkr.eventBus.dispatchEvent(jkr.GameEventType.EXCHANGE_ACCEPT, msg.acceptRoleIndex);
+    },
+
+    onResumeExchange: function(msg) {
+        jkr.Logger.debug("onResumeExchange success.", JSON.stringify(msg));
+        jkr.eventBus.dispatchEvent(jkr.GameEventType.EXCHANGE_RESUME, msg.resumeRoleIndex);
+    },
+
+    onConfirmExchange: function(msg) {
+        jkr.Logger.debug("onConfirmExchange success.", JSON.stringify(msg));
+        jkr.player.onExchangedResource(msg);
+        if (msg.roleIndex === jkr.player.getMyRoleIndex()) {
+            jkr.gameScene.hideOtherExchangeBackPopUp();
+            jkr.eventBus.dispatchEvent(jkr.GameEventType.EXCHANGE_SUCCESS);
+        } else {
+            jkr.gameScene.hideExchangePopUp();
+        }
+        this.showExchangeSuccessTips(msg.roleIndex, msg.targetIndex);
+    },
+
+    showExchangeSuccessTips: function(role1, role2) {
+        let role1Data = jkr.player.getRoleData(role1);
+        let role2Data = jkr.player.getRoleData(role2);
+        jkr.gameScene.showTipsItemRender(role1Data.roleName + " 与 " + role2Data.roleName + " 完成交换.", 0.5);
     },
 });

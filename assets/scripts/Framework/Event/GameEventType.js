@@ -19,6 +19,9 @@ let GameEventType = cc.Enum({
     COLOR_SELECT_FAILED: "COLOR_SELECT_FAILED",             // 颜色选择失败
     SYNC_ROLE_COLOR: "SYNC_ROLE_COLOR",                     // 同步玩家颜色
     SYNC_DICE: "SYNC_DICE",                                 // 骰子数字同步
+    EXCHANGE_ACCEPT: "EXCHANGE_ACCEPT",                     // 接受交换通知
+    EXCHANGE_RESUME: "EXCHANGE_RESUME",                     // 拒绝交换通知
+    EXCHANGE_SUCCESS: "EXCHANGE_SUCCESS",                   // 交换成功通知
 
     ROLE_DATA_REFRESH: "ROLE_DATA_REFRESH_",                // 玩家信息刷新
 });

@@ -54,6 +54,14 @@ cc.Class({
     },
     
     sendBuildCityMsg: function() {
+        let gameSM = jkr.player.getGameSM();
+        if (gameSM.is("operating")) {
+            if (this.cityType === -1) {
+                jkr.player.costResource(1, 1, 1, 0, 1);
+            } else if (this.cityType === 0) {
+                jkr.player.costResource(0, 2, 0, 3, 0);
+            }
+        }
         let bCityType = 0;
         if (this.cityType === -1) {
             bCityType = 0;
@@ -87,9 +95,14 @@ cc.Class({
     },
 
     cancelBuildCity: function() {
-        this.smallNode.active = false;
-        this.bigNode.active = false;
-        this.cityType = -1;
+        this.node.opacity = 225;
+        if (this.cityType === -1) {
+            this.smallNode.active = false;
+            this.bigNode.active = false;
+        } else if (this.cityType === 0) {
+            this.smallNode.active = true;
+            this.bigNode.active = false;
+        }
     },
 
     addLinkedRoad: function(roadObj) {
@@ -145,13 +158,6 @@ cc.Class({
                 if (!jkr.player.checkResource(0, 2, 0, 3, 0)) {
                     return false;
                 }
-            }
-
-
-            if (this.cityType === -1) {
-                jkr.player.costResource(1, 1, 1, 0, 1);
-            } else if (this.cityType === 0) {
-                jkr.player.costResource(0, 2, 0, 3, 0);
             }
         }
         jkr.Logger.debug("not player build time");
