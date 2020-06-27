@@ -61,8 +61,12 @@ let GameConst = {
     },
 
     exchangeType: {
+        // 发起与玩家交换
         player: 1,
-        bank: 2
+        // 发起与银行交换
+        bank: 2,
+        // 收到玩家交换请求
+        receive: 3,
     }
 
 };

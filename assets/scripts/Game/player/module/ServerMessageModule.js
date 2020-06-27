@@ -19,6 +19,7 @@ let ServerMessageModule = cc.Class({
         jkr.handlerManager.registerHandler(jkr.messageType.SC_THROW_DICE, msg => this.onSyncDice(msg));
         jkr.handlerManager.registerHandler(jkr.messageType.SC_TURN_NEXT_ONE, msg => this.onTurnNext(msg));
         jkr.handlerManager.registerHandler(jkr.messageType.SC_SYNC_ROLE_VIEW, msg => this.onInfoUpdate(msg));
+        jkr.handlerManager.registerHandler(jkr.messageType.SC_START_EXCHANGE, msg => this.onStartExchange(msg));
     },
 
     init: function (player) {
@@ -128,5 +129,17 @@ let ServerMessageModule = cc.Class({
     onInfoUpdate: function(msg) {
         jkr.Logger.debug("onInfoUpdate success.", JSON.stringify(msg));
         jkr.player.updateRoleInfo(msg);
+    },
+
+    onStartExchange: function(msg) {
+        jkr.Logger.debug("onStartExchange success.", JSON.stringify(msg));
+        if (msg.roleIndex === jkr.player.getMyRoleIndex()) {
+            jkr.gameScene.showOtherExchangeBackPopUp();
+        } else {
+            jkr.gameScene.showExchangePopUp({
+                type: jkr.constant.exchangeType.receive,
+                receiveExchangeInfo: msg
+            })
+        }
     },
 });

@@ -29,28 +29,51 @@ cc.Class({
         ratioStoneNumLabel: cc.Label,
 
         ratioNode: cc.Node,
+
+        confirmBtnNode: cc.Node,
+        cancelBtnNode: cc.Node,
+
+        acceptBtnNode: cc.Node,
+        refuseBtnNode: cc.Node,
     },
 
     showPageBegan: function() {
         this.ratioNode.active = this.data.type === jkr.constant.exchangeType.bank;
+        this.confirmBtnNode.active = this.data.type !== jkr.constant.exchangeType.receive;
+        this.cancelBtnNode.active = this.data.type !== jkr.constant.exchangeType.receive;
+        this.acceptBtnNode.active = this.data.type === jkr.constant.exchangeType.receive;
+        this.refuseBtnNode.active = this.data.type === jkr.constant.exchangeType.receive;
 
-        this.inWoodNum = 0;
-        this.inBrickNum = 0;
-        this.inSheepNum = 0;
-        this.inRiceNum = 0;
-        this.inStoneNum = 0;
+        if (this.data.type === jkr.constant.exchangeType.receive) {
+            this.inWoodNum = this.data.inWoodNum;
+            this.inBrickNum = this.data.inBrickNum;
+            this.inSheepNum = this.data.inSheepNum;
+            this.inRiceNum = this.data.inRiceNum;
+            this.inStoneNum = this.data.inStoneNum;
 
-        this.outWoodNum = 0;
-        this.outBrickNum = 0;
-        this.outSheepNum = 0;
-        this.outRiceNum = 0;
-        this.outStoneNum = 0;
+            this.outWoodNum = this.data.outWoodNum;
+            this.outBrickNum = this.data.outBrickNum;
+            this.outSheepNum = this.data.outSheepNum;
+            this.outRiceNum = this.data.outRiceNum;
+            this.outStoneNum = this.data.outStoneNum;
+        } else {
+            this.inWoodNum = 0;
+            this.inBrickNum = 0;
+            this.inSheepNum = 0;
+            this.inRiceNum = 0;
+            this.inStoneNum = 0;
 
-        this.ownWoodNum = jkr.player.getResourceNum(jkr.constant.MAP_WOOD);
-        this.ownBrickNum = jkr.player.getResourceNum(jkr.constant.MAP_BRICK);
-        this.ownSheepNum = jkr.player.getResourceNum(jkr.constant.MAP_SHEEP);
-        this.ownRiceNum = jkr.player.getResourceNum(jkr.constant.MAP_RICE);
-        this.ownStoneNum = jkr.player.getResourceNum(jkr.constant.MAP_STONE);
+            this.outWoodNum = 0;
+            this.outBrickNum = 0;
+            this.outSheepNum = 0;
+            this.outRiceNum = 0;
+            this.outStoneNum = 0;
+        }
+        this.ownWoodNum = jkr.player.getResourceNum(jkr.constant.MAP_WOOD) + this.inWoodNum - this.outWoodNum;
+        this.ownBrickNum = jkr.player.getResourceNum(jkr.constant.MAP_BRICK) + this.inBrickNum - this.outBrickNum;
+        this.ownSheepNum = jkr.player.getResourceNum(jkr.constant.MAP_SHEEP) + this.inSheepNum - this.outSheepNum;
+        this.ownRiceNum = jkr.player.getResourceNum(jkr.constant.MAP_RICE) + this.inRiceNum - this.outRiceNum;
+        this.ownStoneNum = jkr.player.getResourceNum(jkr.constant.MAP_STONE) + this.inStoneNum - this.outStoneNum;
 
         this.refreshAllNumLabel();
     },
@@ -76,11 +99,41 @@ cc.Class({
     },
 
     onClickConfirm: function() {
+        if (this.data.type === jkr.constant.exchangeType.player) {
+            let inAll = this.inWoodNum + this.inBrickNum + this.inSheepNum + this.inRiceNum + this.inStoneNum;
+            let outAll = this.outWoodNum + this.outBrickNum + this.outSheepNum + this.outRiceNum + this.outStoneNum;
+            if (inAll === 0 || outAll === 0) {
+                jkr.gameScene.showTipsItemRender("送出或收入不能为0.", 0.3);
+                return;
+            }
+            let msg = {
+                type: jkr.messageType.CS_START_EXCHANGE,
+                outWoodNum: this.outWoodNum,
+                outBrickNum: this.outBrickNum,
+                outSheepNum: this.outSheepNum,
+                outRiceNum: this.outRiceNum,
+                outStoneNum: this.outStoneNum,
 
+                inWoodNum: this.inWoodNum,
+                inBrickNum: this.inBrickNum,
+                inSheepNum: this.inSheepNum,
+                inRiceNum: this.inRiceNum,
+                inStoneNum: this.inStoneNum
+            };
+            jkr.player.sendMessage(msg);
+        }
     },
 
     onClickCancel: function() {
         jkr.gameScene.hideExchangePopUp();
+    },
+
+    onClickAccept: function() {
+
+    },
+
+    onClickResume: function() {
+
     },
 
     onClickWoodAdd: function() {
@@ -124,6 +177,9 @@ cc.Class({
     },
     
     sourceCommonAdd: function(sourceName) {
+        if (this.data.type === jkr.constant.exchangeType.receive) {
+            return;
+        }
         if (this.data.type === jkr.constant.exchangeType.player) {
             this["own" + sourceName] += 1;
             if (this["out" + sourceName] > 0) {
@@ -136,6 +192,9 @@ cc.Class({
     },
 
     sourceCommonSub: function(sourceName) {
+        if (this.data.type === jkr.constant.exchangeType.receive) {
+            return;
+        }
         if (this.data.type === jkr.constant.exchangeType.player) {
             if (this["own" + sourceName] <= 0) {
                 return;

@@ -59,5 +59,9 @@ jkr.messageType = {
     // 同步玩家显示
     CS_SYNC_ROLE_VIEW: 1029,
     SC_SYNC_ROLE_VIEW: 1030,
+
+    // 发起资源交换
+    CS_START_EXCHANGE: 1031,
+    SC_START_EXCHANGE: 1032,
 };
 

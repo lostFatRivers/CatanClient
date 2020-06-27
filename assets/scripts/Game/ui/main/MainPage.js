@@ -343,7 +343,7 @@ cc.Class({
     
     onClickNext: function() {
         if (!jkr.player.isMyRound()) {
-            jkr.gameScene.showTipsItemRender("不是自己的回合, 等会儿", 0.3);
+            jkr.gameScene.showTipsItemRender("不是自己的回合", 0.3);
             return;
         }
         let msg = {
@@ -354,6 +354,10 @@ cc.Class({
     },
 
     onClickExchange: function() {
+        if (!jkr.player.isMyRound()) {
+            jkr.gameScene.showTipsItemRender("不是自己的回合", 0.3);
+            return;
+        }
         jkr.gameScene.showExchangePopUp({type: jkr.constant.exchangeType.player});
     },
 

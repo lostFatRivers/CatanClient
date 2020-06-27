@@ -219,6 +219,14 @@ cc.Class({
         this.closePage(jkr.pageConstant.PAGE_TYPE_EXCHANGE);
     },
 
+    showOtherExchangeBackPopUp: function() {
+
+    },
+
+    hideOtherExchangeBackPopUp: function() {
+
+    },
+
     update (dt) {
         this.curTime += dt;
         if (this.curTime >= 1) {
