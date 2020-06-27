@@ -180,7 +180,7 @@
       "array": [
         0,
         0,
-        416.5482973877307,
+        555.4064484114419,
         0,
         0,
         0,
@@ -735,6 +735,9 @@
     },
     "exchangePrefab": {
       "__uuid__": "da8e5003-d161-428b-b3a7-b95e1dfc648d"
+    },
+    "otherExchangeBackPrefab": {
+      "__uuid__": "83b78bb8-ee80-45f4-8bfd-54818c7dd62e"
     },
     "_id": "1b+IQOl4FEUpJi+3VYZ841"
   }

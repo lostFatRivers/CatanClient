@@ -18,6 +18,7 @@ let PageConstant = {
     PAGE_TYPE_ROOM_DETAIL: 10,                                  // 页面唯一标示 ---------- room detail
     PAGE_TYPE_BUILD_CONFIRM: 11,                                // 页面唯一标示 ---------- build confirm
     PAGE_TYPE_EXCHANGE: 12,                                     // 页面唯一标示 ---------- 资源交换
+    PAGE_TYPE_OTHER_EXCHANGE_BACK: 13,                          // 页面唯一标示 ---------- 资源交换其他玩家反馈
 };
 
 module.exports = PageConstant;

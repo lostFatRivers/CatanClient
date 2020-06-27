@@ -10267,6 +10267,9 @@
     "data": null,
     "blackNode": null,
     "pageType": -1,
+    "exchangeLabel": {
+      "__id__": 9
+    },
     "inWoodNumLabel": {
       "__id__": 37
     },

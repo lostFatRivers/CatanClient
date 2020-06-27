@@ -22,7 +22,22 @@ cc.Class({
         }
     },
 
+    closePageEnded: function() {
+        this.othersPanel.destroyAllChildren();
+    },
 
+    onClickConfirm: function() {
+        
+    },
+    
+    onClickClose: function() {
+        this.closePage();
+        let msg = {
+            type: jkr.messageType.CS_CLOSE_EXCHANGE,
+            roleIndex: jkr.player.getMyRoleIndex(),
+        };
+        jkr.player.sendMessage(msg);
+    },
 
 });
 

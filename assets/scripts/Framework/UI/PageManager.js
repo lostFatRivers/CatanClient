@@ -39,7 +39,7 @@ let PageManager = cc.Class({
         },
     },
 
-    jkrerLoad () {
+    afterLoad () {
         this.registeredPageList = this.registerPage();
 
         // 需要检测的弹板列表

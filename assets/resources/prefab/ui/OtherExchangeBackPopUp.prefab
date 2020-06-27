@@ -1339,7 +1339,9 @@
     "otherItemPrefab": {
       "__uuid__": "2f6cc5db-110a-42a4-b42c-f73db1d6ae76"
     },
-    "othersPanel": null,
+    "othersPanel": {
+      "__id__": 7
+    },
     "_id": ""
   },
   {

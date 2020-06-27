@@ -12,7 +12,7 @@ let BaseUI = cc.Class({
     onLoad: function() {
         this.registerSysEvent();
         this.registerGameListener();
-        this.jkrerLoad();
+        this.afterLoad();
     },
 
     onDestroy: function() {
@@ -27,7 +27,7 @@ let BaseUI = cc.Class({
         // Override me;
     },
 
-    jkrerLoad: function() {
+    afterLoad: function() {
         // Override me;
     },
 

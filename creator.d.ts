@@ -785,7 +785,7 @@ declare namespace cc {
 	/**
 	!#en
 	Helper constructor to create an array of sequenceable actions
-	The created action will run actions sequentially, one jkrer another.
+	The created action will run actions sequentially, one after another.
 	!#zh 顺序执行动作，创建的动作将按顺序依次运行。
 	@param actionOrActionArray actionOrActionArray
 	@param tempArray tempArray
@@ -1409,7 +1409,7 @@ declare namespace cc {
 	/**
 	!#en
 	Checks whether the object is non-nil and not yet destroyed.<br>
-	When an object's `destroy` is called, it is actually destroyed jkrer the end of this frame.
+	When an object's `destroy` is called, it is actually destroyed after the end of this frame.
 	So `isValid` will return false from the next frame, while `isValid` in the current frame will still be true.
 	If you want to determine whether the current frame has called `destroy`, use `cc.isValid(obj, true)`,
 	but this is often caused by a particular logical requirements, which is not normally required.
@@ -1426,7 +1426,7 @@ declare namespace cc {
 	cc.log(cc.isValid(node));    // true
 	node.destroy();
 	cc.log(cc.isValid(node));    // true, still valid in this frame
-	// jkrer a frame...
+	// after a frame...
 	cc.log(cc.isValid(node));    // false, destroyed in the end of last frame
 	``` 
 	*/
@@ -2621,14 +2621,14 @@ declare namespace cc {
 		!#zh 立刻切换指定场景。
 		@param scene The need run scene.
 		@param onBeforeLoadScene The function invoked at the scene before loading.
-		@param onLaunched The function invoked at the scene jkrer launch.
+		@param onLaunched The function invoked at the scene after launch.
 		*/
 		runSceneImmediate(scene: Scene, onBeforeLoadScene?: Function, onLaunched?: Function): void;		
 		/**
 		!#en Loads the scene by its name.
 		!#zh 通过场景名称进行加载场景。
 		@param sceneName The name of the scene to load.
-		@param onLaunched callback, will be called jkrer scene launched.
+		@param onLaunched callback, will be called after scene launched.
 		*/
 		loadScene(sceneName: string, onLaunched?: Function): boolean;		
 		/**
@@ -2636,17 +2636,17 @@ declare namespace cc {
 		Preloads the scene to reduces loading time. You can call this method at any time you want.
 		After calling this method, you still need to launch the scene by `cc.director.loadScene`.
 		It will be totally fine to call `cc.director.loadScene` at any time even if the preloading is not
-		yet finished, the scene will be launched jkrer loaded automatically.
+		yet finished, the scene will be launched after loaded automatically.
 		!#zh 预加载场景，你可以在任何时候调用这个方法。
 		调用完后，你仍然需要通过 `cc.director.loadScene` 来启动场景，因为这个方法不会执行场景加载操作。
 		就算预加载还没完成，你也可以直接调用 `cc.director.loadScene`，加载完成后场景就会启动。
 		@param sceneName The name of the scene to preload.
 		@param onProgress callback, will be called when the load progression change.
-		@param onLoaded callback, will be called jkrer scene loaded.
+		@param onLoaded callback, will be called after scene loaded.
 		*/
 		preloadScene(sceneName: string, onProgress?: (completedCount: number, totalCount: number, item: any) => void, onLoaded?: (error: Error, asset: SceneAsset) => void): void;		
 		/**
-		!#en Resume game logic execution jkrer pause, if the current scene is not paused, nothing will happen.
+		!#en Resume game logic execution after pause, if the current scene is not paused, nothing will happen.
 		!#zh 恢复暂停场景的游戏逻辑，如果当前场景没有暂停将没任何事情发生。 
 		*/
 		resume(): void;		
@@ -2746,13 +2746,13 @@ declare namespace cc {
 		/** !#en The event which will be triggered before launching a new scene.
 		!#zh 运行新场景之前所触发的事件。 */
 		static EVENT_BEFORE_SCENE_LAUNCH: string;		
-		/** !#en The event which will be triggered jkrer launching a new scene.
+		/** !#en The event which will be triggered after launching a new scene.
 		!#zh 运行新场景之后所触发的事件。 */
 		static EVENT_AFTER_SCENE_LAUNCH: string;		
 		/** !#en The event which will be triggered at the beginning of every frame.
 		!#zh 每个帧的开始时所触发的事件。 */
 		static EVENT_BEFORE_UPDATE: string;		
-		/** !#en The event which will be triggered jkrer engine and components update logic.
+		/** !#en The event which will be triggered after engine and components update logic.
 		!#zh 将在引擎和组件 “update” 逻辑之后所触发的事件。 */
 		static EVENT_AFTER_UPDATE: string;		
 		/** !#en The event is deprecated since v2.0, please use cc.Director.EVENT_BEFORE_DRAW instead
@@ -2764,7 +2764,7 @@ declare namespace cc {
 		/** !#en The event which will be triggered before the rendering process.
 		!#zh 渲染过程之前所触发的事件。 */
 		static EVENT_BEFORE_DRAW: string;		
-		/** !#en The event which will be triggered jkrer the rendering process.
+		/** !#en The event which will be triggered after the rendering process.
 		!#zh 渲染过程之后所触发的事件。 */
 		static EVENT_AFTER_DRAW: string;		
 		/** Constant for 2D projection (orthogonal projection) */
@@ -2818,9 +2818,9 @@ declare namespace cc {
 		/** !#en Event triggered when game restart
 		!#zh 调用restart后，触发事件。 */
 		EVENT_RESTART: string;		
-		/** Event triggered jkrer game inited, at this point all engine objects and game scripts are loaded */
+		/** Event triggered after game inited, at this point all engine objects and game scripts are loaded */
 		EVENT_GAME_INITED: string;		
-		/** Event triggered jkrer engine inited, at this point you will be able to use all engine classes.
+		/** Event triggered after engine inited, at this point you will be able to use all engine classes.
 		It was defined as EVENT_RENDERER_INITED in cocos creator v1.x and renamed in v2.0 */
 		EVENT_ENGINE_INITED: string;		
 		/** Web Canvas 2d API as renderer backend */
@@ -2962,7 +2962,7 @@ declare namespace cc {
 		/**
 		!#en
 		Register an callback of a specific event type on the game object,
-		the callback will remove itself jkrer the first time it is triggered.
+		the callback will remove itself after the first time it is triggered.
 		!#zh
 		注册 game 的特定事件类型回调，回调会在第一时间被触发后删除自身。
 		@param type A string representing the event type to listen for.
@@ -2981,7 +2981,7 @@ declare namespace cc {
 		!#en Run game with configuration object and onStart function.
 		!#zh 运行游戏，并且指定引擎配置和 onStart 的回调。
 		@param config Pass configuration object or onStart function
-		@param onStart function to be executed jkrer game initialized
+		@param onStart function to be executed after game initialized
 		*/
 		run(config: any, onStart: Function): void;		
 		/**
@@ -3096,7 +3096,7 @@ declare namespace cc {
 		/** !#en zIndex is the 'key' used to sort the node relative to its siblings.<br/>
 		The value of zIndex should be in the range between cc.macro.MIN_ZINDEX and cc.macro.MAX_ZINDEX.<br/>
 		The Node's parent will sort all its children based on the zIndex value and the arrival order.<br/>
-		Nodes with greater zIndex will be sorted jkrer nodes with smaller zIndex.<br/>
+		Nodes with greater zIndex will be sorted after nodes with smaller zIndex.<br/>
 		If two nodes have the same zIndex, then the node that was added first to the children's array will be in front of the other node in the array.<br/>
 		Node's order in children list will affect its rendering order. Parent is always rendering before all children.
 		!#zh zIndex 是用来对节点进行排序的关键属性，它决定一个节点在兄弟节点之间的位置。<br/>
@@ -3122,7 +3122,7 @@ declare namespace cc {
 		please do not use cc.eventManager directly for Node.<br/>
 		You can also register custom event and use `emit` to trigger custom event on Node.<br/>
 		For such events, there won't be capturing and bubbling phase, your event will be dispatched directly to its listeners registered on the same node.<br/>
-		You can also pass event callback parameters with `emit` by passing parameters jkrer `type`.
+		You can also pass event callback parameters with `emit` by passing parameters after `type`.
 		!#zh
 		在节点上注册指定类型的回调函数，也可以设置 target 用于绑定响应函数的 this 对象。<br/>
 		鼠标或触摸事件会被系统调用 dispatchEvent 方法触发，触发的过程包含三个阶段：<br/>
@@ -3153,7 +3153,7 @@ declare namespace cc {
 		/**
 		!#en
 		Register an callback of a specific event type on the Node,
-		the callback will remove itself jkrer the first time it is triggered.
+		the callback will remove itself after the first time it is triggered.
 		!#zh
 		注册节点的特定事件类型回调，回调会在第一时间被触发后删除自身。
 		@param type A string representing the event type to listen for.
@@ -3264,7 +3264,7 @@ declare namespace cc {
 		Executes an action, and returns the action that is executed.<br/>
 		The node becomes the action's target. Refer to cc.Action's getTarget() <br/>
 		Calling runAction while the node is not active won't have any effect. <br/>
-		Note：You shouldn't modify the action jkrer runAction, that won't take any effect.<br/>
+		Note：You shouldn't modify the action after runAction, that won't take any effect.<br/>
 		if you want to modify, when you define action plus.
 		!#zh
 		执行并返回该执行的动作。该节点将会变成动作的目标。<br/>
@@ -3876,7 +3876,7 @@ declare namespace cc {
 	cc.Scene 是 cc.Node 的子类，仅作为一个抽象的概念。<br/>
 	cc.Scene 和 cc.Node 有点不同，用户不应直接修改 cc.Scene。 */
 	export class Scene extends Node {		
-		/** !#en Indicates whether all (directly or indirectly) static referenced assets of this scene are releasable by default jkrer scene unloading.
+		/** !#en Indicates whether all (directly or indirectly) static referenced assets of this scene are releasable by default after scene unloading.
 		!#zh 指示该场景中直接或间接静态引用到的所有资源是否默认在场景切换后自动释放。 */
 		autoReleaseAssets: boolean;	
 	}	
@@ -3972,7 +3972,7 @@ declare namespace cc {
 		/**
 		!#en
 		Schedules the update callback for a given target,
-		During every frame jkrer schedule started, the "update" function of target will be invoked.
+		During every frame after schedule started, the "update" function of target will be invoked.
 		!#zh
 		使用指定的优先级为指定的对象设置 update 定时器。
 		update 定时器每一帧都会被触发，触发时自动调用指定对象的 "update" 函数。
@@ -5720,7 +5720,7 @@ declare namespace cc {
 		/**
 		!#en
 		Register an callback of a specific event type on the EventTarget,
-		the callback will remove itself jkrer the first time it is triggered.
+		the callback will remove itself after the first time it is triggered.
 		!#zh
 		注册事件目标的特定事件类型回调，回调会在第一时间被触发后删除自身。
 		@param type A string representing the event type to listen for.
@@ -5978,7 +5978,7 @@ declare namespace cc {
 		/**
 		!#en
 		Called before all scripts' update if the Component is enabled the first time.
-		Usually used to initialize some logic which need to be called jkrer all components' `onload` methods called.<br/>
+		Usually used to initialize some logic which need to be called after all components' `onload` methods called.<br/>
 		This is a lifecycle method. It may not be implemented in the super class. You can only call its super class method inside it. It should not be called manually elsewhere.
 		!#zh
 		如果该组件第一次启用，则在所有组件的 update 之前调用。通常用于需要在所有组件的 onLoad 初始化完毕后执行的逻辑。<br/>
@@ -6096,7 +6096,7 @@ declare namespace cc {
 		_getLocalBounds(out_rect: Rect): void;		
 		/**
 		!#en
-		onRestore is called jkrer the user clicks the Reset item in the Inspector's context menu or performs
+		onRestore is called after the user clicks the Reset item in the Inspector's context menu or performs
 		an undo operation on this component.<br/>
 		<br/>
 		If the component contains the "internal state", short for "temporary member variables which not included<br/>
@@ -7040,7 +7040,7 @@ declare namespace cc {
 	/** !#en
 	Stores and manipulate the anchoring based on its parent.
 	Widget are used for GUI but can also be used for other things.
-	Widget will adjust current node's position and size automatically, but the results jkrer adjustment can not be obtained until the next frame unless you call {{#crossLink "Widget/updateAlignment:method"}}{{/crossLink}} manually.
+	Widget will adjust current node's position and size automatically, but the results after adjustment can not be obtained until the next frame unless you call {{#crossLink "Widget/updateAlignment:method"}}{{/crossLink}} manually.
 	!#zh
 	Widget 组件，用于设置和适配其相对于父节点的边距，Widget 通常被用于 UI 界面，也可以用于其他地方。
 	Widget 会自动调整当前节点的坐标和宽高，不过目前调整后的结果要到下一帧才能在脚本里获取到，除非你先手动调用 {{#crossLink "Widget/updateAlignment:method"}}{{/crossLink}}。 */
@@ -7149,7 +7149,7 @@ declare namespace cc {
 		/**
 		!#en
 		Immediately perform the widget alignment. You need to manually call this method only if
-		you need to get the latest results jkrer the alignment before the end of current frame.
+		you need to get the latest results after the alignment before the end of current frame.
 		!#zh
 		立刻执行 widget 对齐操作。这个接口一般不需要手工调用。
 		只有当你需要在当前帧结束前获得 widget 对齐后的最新结果时才需要手动调用这个方法。
@@ -7360,7 +7360,7 @@ declare namespace cc {
 		/**
 		!#en
 		Register an callback of a specific event type on the EventTarget,
-		the callback will remove itself jkrer the first time it is triggered.
+		the callback will remove itself after the first time it is triggered.
 		!#zh
 		注册事件目标的特定事件类型回调，回调会在第一时间被触发后删除自身。
 		@param type A string representing the event type to listen for.
@@ -7424,7 +7424,7 @@ declare namespace cc {
 		Indicates the optimization policy for instantiating this prefab.
 		Set to a suitable value based on usage, can optimize the time it takes to instantiate this prefab. */
 		optimizationPolicy: Prefab.OptimizationPolicy;		
-		/** !#en Indicates the raw assets of this prefab can be load jkrer prefab loaded.
+		/** !#en Indicates the raw assets of this prefab can be load after prefab loaded.
 		!#zh 指示该 Prefab 依赖的资源可否在 Prefab 加载后再延迟加载。 */
 		asyncLoadAssets: boolean;		
 		readonly: boolean;		
@@ -7475,7 +7475,7 @@ declare namespace cc {
 	!#zh 场景资源类。 */
 	export class SceneAsset extends Asset {		
 		scene: Scene;		
-		/** !#en Indicates the raw assets of this scene can be load jkrer scene launched.
+		/** !#en Indicates the raw assets of this scene can be load after scene launched.
 		!#zh 指示该场景依赖的资源可否在场景切换后再延迟加载。 */
 		asyncLoadAssets: boolean;	
 	}	
@@ -7704,7 +7704,7 @@ declare namespace cc {
 		/**
 		!#en
 		Register an callback of a specific event type on the EventTarget,
-		the callback will remove itself jkrer the first time it is triggered.
+		the callback will remove itself after the first time it is triggered.
 		!#zh
 		注册事件目标的特定事件类型回调，回调会在第一时间被触发后删除自身。
 		@param type A string representing the event type to listen for.
@@ -7838,7 +7838,7 @@ declare namespace cc {
 		/**
 		!#en
 		Handler of texture loaded event.
-		Since v2.0, you don't need to invoke this function, it will be invoked automatically jkrer texture loaded.
+		Since v2.0, you don't need to invoke this function, it will be invoked automatically after texture loaded.
 		!#zh 贴图加载事件处理器。v2.0 之后你将不在需要手动执行这个函数，它会在贴图加载成功之后自动执行。
 		@param premultiplied premultiplied 
 		*/
@@ -7947,7 +7947,7 @@ declare namespace cc {
 		/**
 		!#en
 		Register an callback of a specific event type on the EventTarget,
-		the callback will remove itself jkrer the first time it is triggered.
+		the callback will remove itself after the first time it is triggered.
 		!#zh
 		注册事件目标的特定事件类型回调，回调会在第一时间被触发后删除自身。
 		@param type A string representing the event type to listen for.
@@ -8164,7 +8164,7 @@ declare namespace cc {
 		/**
 		!#en
 		Register an callback of a specific event type on the EventTarget,
-		the callback will remove itself jkrer the first time it is triggered.
+		the callback will remove itself after the first time it is triggered.
 		!#zh
 		注册事件目标的特定事件类型回调，回调会在第一时间被触发后删除自身。
 		@param type A string representing the event type to listen for.
@@ -8345,7 +8345,7 @@ declare namespace cc {
 	detailed APIs will be available progressively.
 	!#zh 提供基础渲染接口的渲染器对象，渲染层的基础接口将逐步开放给用户 */
 	export class renderer {		
-		/** !#en The render engine is available only jkrer cc.game.EVENT_ENGINE_INITED event.<br/>
+		/** !#en The render engine is available only after cc.game.EVENT_ENGINE_INITED event.<br/>
 		Normally it will be inited as the webgl render engine, but in wechat open context domain,
 		it will be inited as the canvas render engine. Canvas render engine is no longer available for other use case since v2.0.
 		!#zh 基础渲染引擎对象只在 cc.game.EVENT_ENGINE_INITED 事件触发后才可获取。<br/>
@@ -8547,7 +8547,7 @@ declare namespace cc {
 		/**
 		!#en
 		Register an callback of a specific event type on the EventTarget,
-		the callback will remove itself jkrer the first time it is triggered.
+		the callback will remove itself after the first time it is triggered.
 		!#zh
 		注册事件目标的特定事件类型回调，回调会在第一时间被触发后删除自身。
 		@param type A string representing the event type to listen for.
@@ -8795,7 +8795,7 @@ declare namespace cc {
 		!#en
 		Get all resource dependencies of the loaded asset in an array, including itself.
 		The owner parameter accept the following types: 1. The asset itself; 2. The resource url; 3. The asset's uuid.<br>
-		The returned array stores the dependencies with their uuids, jkrer retrieve dependencies,
+		The returned array stores the dependencies with their uuids, after retrieve dependencies,
 		you can release them, access dependent assets by passing the uuid to {{#crossLink "loader/getRes:method"}}{{/crossLink}}, or other stuffs you want.<br>
 		For release all dependencies of an asset, please refer to {{#crossLink "loader/release:method"}}{{/crossLink}}
 		Here is some examples:
@@ -8974,7 +8974,7 @@ declare namespace cc {
 	- states: An object stores the states of each pipe the item go through, the state can be: Pipeline.ItemState.WORKING | Pipeline.ItemState.ERROR | Pipeline.ItemState.COMPLETE<br/>
 	<br/>
 	Item can hold other custom properties.<br/>
-	Each LoadingItems object will be destroyed for recycle jkrer onComplete callback<br/>
+	Each LoadingItems object will be destroyed for recycle after onComplete callback<br/>
 	So please don't hold its reference for later usage, you can copy properties in it though.
 	!#zh
 	LoadingItems 是一个加载对象队列，可以用来输送加载对象到加载管线中。<br/>
@@ -9170,7 +9170,7 @@ declare namespace cc {
 		*/
 		itemComplete(id: string): void;		
 		/**
-		!#en Destroy the LoadingItems queue, the queue object won't be garbage collected, it will be recycled, so every jkrer destroy is not reliable.
+		!#en Destroy the LoadingItems queue, the queue object won't be garbage collected, it will be recycled, so every after destroy is not reliable.
 		!#zh 销毁一个 LoadingItems 队列，这个队列对象会被内部缓冲池回收，所以销毁后的所有内部信息都是不可依赖的。 
 		*/
 		destroy(): void;	
@@ -9673,7 +9673,7 @@ declare namespace cc {
 		/**
 		!#en
 		Register an callback of a specific event type on the EventTarget,
-		the callback will remove itself jkrer the first time it is triggered.
+		the callback will remove itself after the first time it is triggered.
 		!#zh
 		注册事件目标的特定事件类型回调，回调会在第一时间被触发后删除自身。
 		@param type A string representing the event type to listen for.
@@ -9793,7 +9793,7 @@ declare namespace cc {
 		/**
 		!#en
 		Collision callback.
-		This is called jkrer a contact is updated.
+		This is called after a contact is updated.
 		You can get the impulses from the contact in this callback.
 		!#zh
 		碰撞回调。
@@ -10203,11 +10203,11 @@ declare namespace cc {
 		如果游戏中的静态物体比较多的话，建议将此选项打开。 */
 		static ENABLE_CULLING: boolean;		
 		/** !#en
-		Whether or not clear dom Image object cache jkrer uploading to gl texture.
+		Whether or not clear dom Image object cache after uploading to gl texture.
 		Concretely, we are setting image.src to empty string to release the cache.
 		Normally you don't need to enable this option, because on web the Image object doesn't consume too much memory.
 		But on WeChat Game platform, the current version cache decoded data in Image object, which has high memory usage.
-		So we enabled this option by default on WeChat, so that we can release Image cache immediately jkrer uploaded to GPU.
+		So we enabled this option by default on WeChat, so that we can release Image cache immediately after uploaded to GPU.
 		!#zh
 		是否在将贴图上传至 GPU 之后删除 DOM Image 缓存。
 		具体来说，我们通过设置 image.src 为空字符串来释放这部分内存。
@@ -10247,8 +10247,8 @@ declare namespace cc {
 		!#zh 该对象的名称。 */
 		name: string;		
 		/** !#en
-		Indicates whether the object is not yet destroyed. (It will not be available jkrer being destroyed)<br>
-		When an object's `destroy` is called, it is actually destroyed jkrer the end of this frame.
+		Indicates whether the object is not yet destroyed. (It will not be available after being destroyed)<br>
+		When an object's `destroy` is called, it is actually destroyed after the end of this frame.
 		So `isValid` will return false from the next frame, while `isValid` in the current frame will still be true.
 		If you want to determine whether the current frame has called `destroy`, use `cc.isValid(obj, true)`,
 		but this is often caused by a particular logical requirements, which is not normally required.
@@ -10842,7 +10842,7 @@ declare namespace cc {
 		apply(view: View, designedResolution: Size): void;		
 		/**
 		!#en
-		Manipulation jkrer applying the strategy
+		Manipulation after applying the strategy
 		!#zh 策略调用之后的操作
 		@param view The target view 
 		*/
@@ -10869,7 +10869,7 @@ declare namespace cc {
 		apply(view: View, designedResolution: Size): any;		
 		/**
 		!#en
-		Manipulation jkrer applying the strategy
+		Manipulation after applying the strategy
 		!#zh 策略调用之后的操作
 		@param view The target view 
 		*/
@@ -10915,7 +10915,7 @@ declare namespace cc {
 		*/
 		apply(view: View, designedResolution: Size): any;		
 		/**
-		!#en Manipulation jkrer appyling the strategy
+		!#en Manipulation after appyling the strategy
 		!#zh 策略应用之后的操作
 		@param view The target view 
 		*/
@@ -11406,7 +11406,7 @@ declare namespace cc {
 		setSiblingIndex(index: number): void;		
 		/**
 		!#en Walk though the sub children tree of the current node.
-		Each node, including the current node, in the sub tree will be visited two times, before all children and jkrer all children.
+		Each node, including the current node, in the sub tree will be visited two times, before all children and after all children.
 		This function call is not recursive, it's based on stack.
 		Please don't walk any other node inside the walk process.
 		!#zh 遍历该节点的子树里的所有节点并按规则执行回调函数。
@@ -11414,14 +11414,14 @@ declare namespace cc {
 		这个函数的实现不是基于递归的，而是基于栈展开递归的方式。
 		请不要在 walk 过程中对任何其他的节点嵌套执行 walk。
 		@param prefunc The callback to process node when reach the node for the first time
-		@param postfunc The callback to process node when re-visit the node jkrer walked all children in its sub tree
+		@param postfunc The callback to process node when re-visit the node after walked all children in its sub tree
 		
 		@example 
 		```js
 		node.walk(function (target) {
 		    console.log('Walked through node ' + target.name + ' for the first time');
 		}, function (target) {
-		    console.log('Walked through node ' + target.name + ' jkrer walked all children in its sub tree');
+		    console.log('Walked through node ' + target.name + ' after walked all children in its sub tree');
 		});
 		``` 
 		*/
@@ -11655,7 +11655,7 @@ declare namespace cc {
 		/**
 		!#en
 		Register an callback of a specific event type on the EventTarget,
-		the callback will remove itself jkrer the first time it is triggered.
+		the callback will remove itself after the first time it is triggered.
 		!#zh
 		注册事件目标的特定事件类型回调，回调会在第一时间被触发后删除自身。
 		@param type A string representing the event type to listen for.
@@ -15989,7 +15989,7 @@ declare namespace sp {
 		*/
 		setAnimation(trackIndex: number, name: string, loop: boolean): sp.spine.TrackEntry;		
 		/**
-		!#en Adds an animation to be played delay seconds jkrer the current or last queued animation.<br>
+		!#en Adds an animation to be played delay seconds after the current or last queued animation.<br>
 		Returns a {{#crossLinkModule "sp.spine"}}sp.spine{{/crossLinkModule}}.TrackEntry object.
 		!#zh 添加一个动画到动画队列尾部，还可以延迟指定的秒数。<br>
 		返回一个 {{#crossLinkModule "sp.spine"}}sp.spine{{/crossLinkModule}}.TrackEntry 对象。
@@ -16392,7 +16392,7 @@ declare namespace dragonBones {
 		off(type: string, listener?: Function, target?: any): void;		
 		/**
 		!#en
-		Add DragonBones one-time event listener, the callback will remove itself jkrer the first time it is triggered.
+		Add DragonBones one-time event listener, the callback will remove itself after the first time it is triggered.
 		!#zh
 		添加 DragonBones 一次性事件监听器，回调会在第一时间被触发后删除自身。
 		@param type A string representing the event type to listen for.
@@ -16667,11 +16667,11 @@ declare namespace cc._decorator {
 	/**
 	!#en
 	The execution order of lifecycle methods for Component.
-	Those less than 0 will execute before while those greater than 0 will execute jkrer.
+	Those less than 0 will execute before while those greater than 0 will execute after.
 	The order will only affect onLoad, onEnable, start, update and lateUpdate while onDisable and onDestroy will not be affected.
 	!#zh
 	设置脚本生命周期方法调用的优先级。优先级小于 0 的组件将会优先执行，优先级大于 0 的组件将会延后执行。优先级仅会影响 onLoad, onEnable, start, update 和 lateUpdate，而 onDisable 和 onDestroy 不受影响。
-	@param order The execution order of lifecycle methods for Component. Those less than 0 will execute before while those greater than 0 will execute jkrer.
+	@param order The execution order of lifecycle methods for Component. Those less than 0 will execute before while those greater than 0 will execute after.
 	
 	@example 
 	```js
@@ -17721,7 +17721,7 @@ declare namespace dragonBones {
          * - Apply a matrix transformation to a specific point.
          * @param x - X coordinate.
          * @param y - Y coordinate.
-         * @param result - The point jkrer the transformation is applied.
+         * @param result - The point after the transformation is applied.
          * @param delta - Whether to ignore tx, ty's conversion to point.
          * @version DragonBones 3.0
          * @language en_US

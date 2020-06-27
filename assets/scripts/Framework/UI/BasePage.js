@@ -35,7 +35,7 @@ let BasePage = cc.Class ({
         },
     },
 
-    jkrerLoad () {
+    afterLoad () {
         // let closeNode = cc.find("ButtonClose", this.node);
         // closeNode.on(cc.Node.EventType.TOUCH_END, function () {
         //     this.closePage();

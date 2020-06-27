@@ -6,6 +6,8 @@ cc.Class({
     properties: {
         playerNameLabel: cc.Label,
 
+        otherSourceName: cc.Label,
+
         bg1Sprite: cc.Node,
         bg2Sprite: cc.Node,
 
@@ -32,6 +34,7 @@ cc.Class({
         this.playerNameLabel.string = roleData.roleName;
         this.bg1Sprite.color = jkr.Utils.hex2color(roleData.color);
         this.bg2Sprite.color = jkr.Utils.hex2color(roleData.color);
+        this.otherSourceName.string = roleData.sourceCardNum + "";
     },
 
     runWaitingBars: function() {

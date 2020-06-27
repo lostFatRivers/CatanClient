@@ -63,5 +63,17 @@ jkr.messageType = {
     // 发起资源交换
     CS_START_EXCHANGE: 1031,
     SC_START_EXCHANGE: 1032,
+
+    // 取消资源交换
+    CS_CLOSE_EXCHANGE: 1033,
+    SC_CLOSE_EXCHANGE: 1034,
+
+    // 接受资源交换
+    CS_ACCEPT_EXCHANGE: 1035,
+    SC_ACCEPT_EXCHANGE: 1036,
+
+    // 拒绝资源交换
+    CS_RESUME_EXCHANGE: 1037,
+    SC_RESUME_EXCHANGE: 1038,
 };
 

@@ -4,6 +4,8 @@ cc.Class({
     extends: jkr.BasePage,
 
     properties: {
+        exchangeLabel: cc.Label,
+
         inWoodNumLabel: cc.Label,
         inBrickNumLabel: cc.Label,
         inSheepNumLabel: cc.Label,
@@ -45,17 +47,20 @@ cc.Class({
         this.refuseBtnNode.active = this.data.type === jkr.constant.exchangeType.receive;
 
         if (this.data.type === jkr.constant.exchangeType.receive) {
-            this.inWoodNum = this.data.inWoodNum;
-            this.inBrickNum = this.data.inBrickNum;
-            this.inSheepNum = this.data.inSheepNum;
-            this.inRiceNum = this.data.inRiceNum;
-            this.inStoneNum = this.data.inStoneNum;
+            this.inWoodNum = this.data.receiveExchangeInfo.inWoodNum;
+            this.inBrickNum = this.data.receiveExchangeInfo.inBrickNum;
+            this.inSheepNum = this.data.receiveExchangeInfo.inSheepNum;
+            this.inRiceNum = this.data.receiveExchangeInfo.inRiceNum;
+            this.inStoneNum = this.data.receiveExchangeInfo.inStoneNum;
 
-            this.outWoodNum = this.data.outWoodNum;
-            this.outBrickNum = this.data.outBrickNum;
-            this.outSheepNum = this.data.outSheepNum;
-            this.outRiceNum = this.data.outRiceNum;
-            this.outStoneNum = this.data.outStoneNum;
+            this.outWoodNum = this.data.receiveExchangeInfo.outWoodNum;
+            this.outBrickNum = this.data.receiveExchangeInfo.outBrickNum;
+            this.outSheepNum = this.data.receiveExchangeInfo.outSheepNum;
+            this.outRiceNum = this.data.receiveExchangeInfo.outRiceNum;
+            this.outStoneNum = this.data.receiveExchangeInfo.outStoneNum;
+            let roleIndex = this.data.receiveExchangeInfo.roleIndex;
+            let roleData = jkr.player.getRoleData(roleIndex);
+            this.exchangeLabel.string = roleData.roleName + "的交换请求";
         } else {
             this.inWoodNum = 0;
             this.inBrickNum = 0;
@@ -68,6 +73,7 @@ cc.Class({
             this.outSheepNum = 0;
             this.outRiceNum = 0;
             this.outStoneNum = 0;
+            this.exchangeLabel.string = "交换";
         }
         this.ownWoodNum = jkr.player.getResourceNum(jkr.constant.MAP_WOOD) + this.inWoodNum - this.outWoodNum;
         this.ownBrickNum = jkr.player.getResourceNum(jkr.constant.MAP_BRICK) + this.inBrickNum - this.outBrickNum;
@@ -108,6 +114,7 @@ cc.Class({
             }
             let msg = {
                 type: jkr.messageType.CS_START_EXCHANGE,
+                roleIndex: jkr.player.getMyRoleIndex(),
                 outWoodNum: this.outWoodNum,
                 outBrickNum: this.outBrickNum,
                 outSheepNum: this.outSheepNum,
@@ -129,11 +136,21 @@ cc.Class({
     },
 
     onClickAccept: function() {
-
+        jkr.gameScene.hideExchangePopUp();
+        let msg = {
+            type: jkr.messageType.CS_ACCEPT_EXCHANGE,
+            roleIndex: jkr.player.getMyRoleIndex(),
+        };
+        jkr.player.sendMessage(msg);
     },
 
     onClickResume: function() {
-
+        jkr.gameScene.hideExchangePopUp();
+        let msg = {
+            type: jkr.messageType.CS_RESUME_EXCHANGE,
+            roleIndex: jkr.player.getMyRoleIndex(),
+        };
+        jkr.player.sendMessage(msg);
     },
 
     onClickWoodAdd: function() {

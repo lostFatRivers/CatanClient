@@ -13,6 +13,7 @@ cc.Class({
         roomDetailPrefab: cc.Prefab,
         buildConfirmPrefab: cc.Prefab,
         exchangePrefab: cc.Prefab,
+        otherExchangeBackPrefab: cc.Prefab,
     },
 
     onLoadManager: function() {
@@ -220,11 +221,11 @@ cc.Class({
     },
 
     showOtherExchangeBackPopUp: function() {
-
+        this.showPage(jkr.pageConstant.PAGE_TYPE_OTHER_EXCHANGE_BACK);
     },
 
     hideOtherExchangeBackPopUp: function() {
-
+        this.closePage(jkr.pageConstant.PAGE_TYPE_OTHER_EXCHANGE_BACK);
     },
 
     update (dt) {
@@ -275,6 +276,13 @@ cc.Class({
                 pageType: jkr.pageConstant.PAGE_TYPE_EXCHANGE,
                 createPrefab: this.exchangePrefab,
                 pageScript: "ExchangePopUp",
+                blackNodeType: jkr.pageConstant.BLACK_NODE_TYPE_NONE,
+                showAnimType: jkr.pageConstant.OPEN_PAGE_ANIMATION_OPACITY,
+            },
+            {
+                pageType: jkr.pageConstant.PAGE_TYPE_OTHER_EXCHANGE_BACK,
+                createPrefab: this.otherExchangeBackPrefab,
+                pageScript: "OtherExchangeBackPopUp",
                 blackNodeType: jkr.pageConstant.BLACK_NODE_TYPE_NONE,
                 showAnimType: jkr.pageConstant.OPEN_PAGE_ANIMATION_OPACITY,
             },
