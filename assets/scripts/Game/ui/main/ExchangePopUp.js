@@ -54,6 +54,7 @@ cc.Class({
     showPageBegan: function() {
         this.outPureCount = 0;
         this.inPureCount = 0;
+        this.stopNode.active = false;
         if (this.data.type === jkr.constant.exchangeType.player) {
             this.playerBtnNode.zIndex = -1;
             this.bankBtnNode.zIndex = -2;

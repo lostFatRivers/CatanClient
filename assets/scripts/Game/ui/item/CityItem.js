@@ -123,6 +123,7 @@ cc.Class({
         if (this.roleIndex < 0) {
             if (this.checkRoundHadCity()) {
                 jkr.Logger.debug("neighbor had city.");
+                jkr.gameScene.showTipsItemRender("相连道路已经有其他城镇");
                 return false;
             }
             if (!jkr.player.inMyPreRound() && !this.roundHadOwnRoad()) {

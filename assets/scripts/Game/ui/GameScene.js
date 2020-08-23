@@ -31,6 +31,8 @@ cc.Class({
         this.loadCycleSprite = cc.find("cycle", this.loadCycleNode);
         this.loadCycleNode.zIndex = jkr.constant.PAGE_LAYER_LOADING_CYCLE;
 
+        this.chatNode = cc.find("chat", this.node);
+
         this.mainNode = cc.find("mainNode", this.node);
 
         this.curTime = 0;
