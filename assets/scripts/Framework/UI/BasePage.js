@@ -190,7 +190,7 @@ let BasePage = cc.Class ({
             cc.tween(this.node)
                 .to(0.2, {opacity: 1})
                 .call(() => {
-                    this.showPageEnded();
+                    this.closePageEnded();
                     this.pageManager.removePageInOpened(this.pageType);
                     this.node.active = false;
                 })

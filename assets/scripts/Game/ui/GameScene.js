@@ -32,6 +32,7 @@ cc.Class({
         this.loadCycleNode.zIndex = jkr.constant.PAGE_LAYER_LOADING_CYCLE;
 
         this.chatNode = cc.find("chat", this.node);
+        this.chatNode.zIndex = 800;
 
         this.mainNode = cc.find("mainNode", this.node);
 
@@ -102,6 +103,30 @@ cc.Class({
         if (this.roomPageObj) {
             this.roomPageObj.node.active = false;
         }
+    },
+
+    showChatInput: function() {
+        if (this.chatShow) {
+            return;
+        }
+        jkr.Logger.debug("显示chat");
+        this.chatShow = true;
+        this.chatNode.active = true;
+        this.chatNode.opacity = 1;
+        cc.tween(this.chatNode)
+            .to(0.3, {opacity: 255})
+            .start();
+    },
+
+    hideChatInput: function() {
+        if (!this.chatShow) {
+            return;
+        }
+        this.chatShow = false;
+        cc.tween(this.chatNode)
+            .to(0.1, {opacity: 1})
+            .call(() => this.chatNode.active = false)
+            .start();
     },
 
     initPlayer: function() {

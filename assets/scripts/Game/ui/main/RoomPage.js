@@ -13,11 +13,6 @@ cc.Class({
     },
 
     start () {
-        // for (let i = 0; i < 10; i++) {
-        //     let eachRoom = cc.instantiate(this.roomItemPrefab);
-        //     this.itemContent.addChild(eachRoom);
-        // }
-        // this.updateNotice();
         let msg = {
             type: jkr.messageType.CS_SYNC_ROOM
         };

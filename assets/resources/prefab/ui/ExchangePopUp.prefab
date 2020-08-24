@@ -42,14 +42,14 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 312
+        "__id__": 311
       },
       {
-        "__id__": 313
+        "__id__": 312
       }
     ],
     "_prefab": {
-      "__id__": 314
+      "__id__": 313
     },
     "_opacity": 255,
     "_color": {
@@ -11213,15 +11213,12 @@
       },
       {
         "__id__": 309
-      },
-      {
-        "__id__": 310
       }
     ],
     "_prefab": {
-      "__id__": 311
+      "__id__": 310
     },
-    "_opacity": 1,
+    "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
       "r": 255,
@@ -11372,7 +11369,7 @@
     "asset": {
       "__uuid__": "da8e5003-d161-428b-b3a7-b95e1dfc648d"
     },
-    "fileId": "d6CZHS9AdFup6vNkJCF6BU",
+    "fileId": "14ltU9U6NEDJJgDesIjkoi",
     "sync": false
   },
   {
@@ -11398,9 +11395,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 72,
-      "g": 68,
-      "b": 255,
+      "r": 4,
+      "g": 191,
+      "b": 0,
       "a": 255
     },
     "_contentSize": {
@@ -11502,40 +11499,8 @@
     "asset": {
       "__uuid__": "da8e5003-d161-428b-b3a7-b95e1dfc648d"
     },
-    "fileId": "7eY6f7J1FJ76C6S+a9rg2v",
+    "fileId": "5dJdU9B5lPjreFPJd1O8u/",
     "sync": false
-  },
-  {
-    "__type__": "cc.Sprite",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 300
-    },
-    "_enabled": true,
-    "_materials": [
-      {
-        "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
-      }
-    ],
-    "_srcBlendFactor": 770,
-    "_dstBlendFactor": 771,
-    "_spriteFrame": {
-      "__uuid__": "a23235d1-15db-4b95-8439-a2e005bfff91"
-    },
-    "_type": 0,
-    "_sizeMode": 0,
-    "_fillType": 0,
-    "_fillCenter": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
-    },
-    "_fillStart": 0,
-    "_fillRange": 0,
-    "_isTrimmedMode": true,
-    "_atlas": null,
-    "_id": ""
   },
   {
     "__type__": "cc.Widget",
@@ -11582,7 +11547,7 @@
     "asset": {
       "__uuid__": "da8e5003-d161-428b-b3a7-b95e1dfc648d"
     },
-    "fileId": "dal66B8EZPRq3sOeObYo5Q",
+    "fileId": "26sf4Oc6RC7p24NctSXutK",
     "sync": false
   },
   {

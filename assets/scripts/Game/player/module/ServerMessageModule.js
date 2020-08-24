@@ -24,6 +24,7 @@ let ServerMessageModule = cc.Class({
         jkr.handlerManager.registerHandler(jkr.messageType.SC_ACCEPT_EXCHANGE, msg => this.onAcceptExchange(msg));
         jkr.handlerManager.registerHandler(jkr.messageType.SC_RESUME_EXCHANGE, msg => this.onResumeExchange(msg));
         jkr.handlerManager.registerHandler(jkr.messageType.SC_CONFIRM_EXCHANGE, msg => this.onConfirmExchange(msg));
+        jkr.handlerManager.registerHandler(jkr.messageType.SC_SEND_CHAT, msg => this.onNewChat(msg));
     },
 
     init: function (player) {
@@ -185,5 +186,17 @@ let ServerMessageModule = cc.Class({
         let role1Data = jkr.player.getRoleData(role1);
         let role2Data = jkr.player.getRoleData(role2);
         jkr.gameScene.showTipsItemRender(role1Data.roleName + " 与 " + role2Data.roleName + " 完成交换.", 0.5);
+    },
+
+    onNewChat: function(msg) {
+        jkr.Logger.debug("onNewChat success.", JSON.stringify(msg));
+        if (!jkr.gameScene.chatShow) {
+            return;
+        }
+        let data = {
+            nickName: msg.nickName,
+            chatContent: msg.chatContent
+        }
+        jkr.eventBus.dispatchEvent(jkr.GameEventType.NEW_CHAT, data);
     },
 });

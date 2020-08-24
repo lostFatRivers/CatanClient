@@ -79,5 +79,9 @@ jkr.messageType = {
     // 确认资源交换(完成)
     CS_CONFIRM_EXCHANGE: 1038,
     SC_CONFIRM_EXCHANGE: 1039,
+
+    // 聊天内容
+    CS_SEND_CHAT: 1040,
+    SC_SEND_CHAT: 1041,
 };
 

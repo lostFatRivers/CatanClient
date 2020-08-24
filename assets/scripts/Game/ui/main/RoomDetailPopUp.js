@@ -20,13 +20,16 @@ cc.Class({
      */
     showPageBegan() {
         this.refreshRoom();
+        jkr.gameScene.showChatInput();
     },
 
     /**
      * 页面关闭动画后回调
      */
     closePageEnded() {
+        jkr.Logger.debug("退出房间");
         jkr.player.setCurrentRoomId(0);
+        jkr.gameScene.hideChatInput();
     },
 
     refreshRoom: function() {
@@ -53,14 +56,6 @@ cc.Class({
             roomId: this.data.roomId,
         };
         jkr.player.sendMessage(msg);
-        // this.scheduleOnce(() => {
-        //     jkr.player.messageModule.onGameStart({
-        //         seed: 1,
-        //         playerIndex: 0,
-        //         allGameRoles: [],
-        //         roomId: 1001
-        //     });
-        // }, 0.5);
     },
 
     onClickExit: function() {
