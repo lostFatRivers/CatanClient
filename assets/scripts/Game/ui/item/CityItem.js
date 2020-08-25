@@ -91,6 +91,9 @@ cc.Class({
                 this.preRoundGiveResource();
             }
         }
+        if (jkr.player.getMyRoleIndex() === roleIndex) {
+            jkr.player.addCityScore();
+        }
         jkr.gameScene.hideConfirmBuildPopUp();
     },
 

@@ -72,6 +72,7 @@ let ServerMessageModule = cc.Class({
         jkr.player.initGameRoles(msg.roomId, myGameIndex, roles);
         jkr.player.initStateMachine();
         jkr.gameScene.hideRoomDetailPopUp();
+        jkr.gameScene.hideChatInput();
         jkr.gameScene.showMainPage();
     },
 

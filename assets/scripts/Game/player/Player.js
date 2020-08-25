@@ -126,6 +126,12 @@ let Player = cc.Class({
                 // 总得分
                 totalScore: 0,
 
+                cityScore: 0,
+                cardScore: 0,
+
+                isMaxRobTimes: false,
+                isMaxRoadLength: false,
+
                 preCityKey: "",
 
                 preCity1Build: false,
@@ -178,6 +184,7 @@ let Player = cc.Class({
         this.selectedColorNum = 0;
         jkr.gameScene.hideRoomPage();
         jkr.gameScene.showColorPopUp();
+        jkr.gameScene.showChatInput();
     },
 
     hideColorPopUp: function() {
@@ -399,6 +406,23 @@ let Player = cc.Class({
 
     getSourceBankRatio: function(sourceName) {
         return 4;
+    },
+
+    // 造城加分
+    addCityScore: function() {
+        let selfRoleData = this.getRoleData(this.selfRoleIndex);
+        selfRoleData.cityScore++;
+        this.refreshSelfTotalScore();
+    },
+
+    // 刷新总分 (不包括得分卡)
+    refreshSelfTotalScore: function() {
+        let selfRoleData = this.getRoleData(this.selfRoleIndex);
+        let cityScore = selfRoleData.cityScore;
+        let maxRoadLengthScore = selfRoleData.isMaxRoadLength ? 2 : 0;
+        let maxRobTimesScore = selfRoleData.isMaxRobTimes ? 2 : 0;
+        selfRoleData.totalScore = cityScore + maxRoadLengthScore + maxRobTimesScore;
+        this.refreshResourceView();
     },
 });
 

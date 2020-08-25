@@ -5,7 +5,8 @@ cc.Class({
 
     properties: {
         colors: [cc.Node],
-        names: [cc.Label]
+        names: [cc.Label],
+        bgs: [cc.Node],
     },
 
     registerGameListener: function() {
@@ -93,6 +94,7 @@ cc.Class({
             if (!colorOwned) {
                 nameLabel.string = "UnKnow";
             }
+            this.bgs[i].active = colorOwned;
         }
     },
 
