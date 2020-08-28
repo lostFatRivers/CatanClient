@@ -407,6 +407,17 @@ let Player = cc.Class({
     getSourceBankRatio: function(sourceName) {
         return 4;
     },
+    
+    addSelfCity: function(cityKey) {
+        let selfRoleData = this.getRoleData(this.selfRoleIndex);
+        selfRoleData.cities.push(cityKey);
+    },
+
+    addSelfRoad: function(roadKey) {
+        let selfRoleData = this.getRoleData(this.selfRoleIndex);
+        selfRoleData.roads.push(roadKey);
+        this.countRoadMaxLength();
+    },
 
     // 造城加分
     addCityScore: function() {
@@ -424,6 +435,114 @@ let Player = cc.Class({
         selfRoleData.totalScore = cityScore + maxRoadLengthScore + maxRobTimesScore;
         this.refreshResourceView();
     },
+
+    /**
+     * 寻找最长路长度:
+     *  1. 找出路的起点
+     *  2. 列举所有路线
+     *  3. 比较路线长度
+     */
+    countRoadMaxLength: function() {
+        let selfRoleData = this.getRoleData(this.selfRoleIndex);
+        let roads = selfRoleData.roads;
+
+        let roadPointTupleArray = [];
+        for (let i = 0; i < roads.length; i++) {
+            let eachRoad = roads[i];
+            let points = eachRoad.split("||");
+            roadPointTupleArray.push(points);
+        }
+        let startPoints = this.findStartPoints(roadPointTupleArray);
+        let allWays = this.walkAllRoadWay(startPoints, roadPointTupleArray);
+
+        let maxLength = 0;
+        for (let i = 0; i < allWays.length; i++) {
+            let eachWay = allWays[i];
+            if (eachWay.length > maxLength) {
+                maxLength = eachWay.length;
+            }
+        }
+        jkr.Logger.debug("road max length:", maxLength);
+        if (maxLength > selfRoleData.roadLength) {
+            selfRoleData.roadLength = maxLength;
+            this.syncInfoToAll();
+        }
+    },
+
+    // 寻找路径起始点, 路径可能不连续, 所以可能有多个
+    findStartPoints: function(roadPoints) {
+        let startPoints = [];
+        out:
+            for (let i = 0; i < roadPoints.length; i++) {
+                let eachRoad = roadPoints[i];
+                let leftPoint = eachRoad[0];
+                for (let j = 0; j < roadPoints.length; j++) {
+                    let eachCompareRoad = roadPoints[j];
+                    if (i === j) continue;
+                    if (eachCompareRoad[1] === leftPoint) continue out;
+                }
+                startPoints.push(eachRoad);
+            }
+        // 防止环状路径找不到起始点
+        if (startPoints.length <= 0) {
+            startPoints.push(roadPoints[0]);
+        }
+        return startPoints;
+    },
+
+    // 依次从起始点寻找所有路线
+    walkAllRoadWay: function(startPoints, roadPoints) {
+        let allWays = [];
+        for (let i = 0; i < startPoints.length; i++) {
+            let startPoint = startPoints[i];
+            let ways = [startPoint];
+            this.walkRoadWayWithStart(1, ways, roadPoints, allWays);
+        }
+        return allWays;
+    },
+
+    walkRoadWayWithStart: function(compareIndex, ways, roadPoints, targets) {
+        let startPoint = ways[ways.length - 1];
+        let ended = true;
+        for (let i = 0; i < roadPoints.length; i++) {
+            let eachPoint = roadPoints[i];
+            let nextCompareIndex = -1;
+            // 第一个点作为下个路的起点
+            if (compareIndex === 0) {
+                if (eachPoint[0] === startPoint[0] && eachPoint[1] !== startPoint[1]) {
+                    nextCompareIndex = 1;
+                } else if (eachPoint[1] === startPoint[0] && eachPoint[0] !== startPoint[1]) {
+                    nextCompareIndex = 0;
+                }
+            }
+            // 第二个点作为下个路的起点
+            else if (compareIndex === 1) {
+                if (eachPoint[0] === startPoint[1] && eachPoint[1] !== startPoint[0]) {
+                    nextCompareIndex = 1;
+                } else if (eachPoint[1] === startPoint[1] && eachPoint[0] !== startPoint[0]) {
+                    nextCompareIndex = 0;
+                }
+            }
+            // 点不相连
+            if (nextCompareIndex === -1)
+                continue;
+            // 路径形成环状
+            if (ways.indexOf(eachPoint) >= 0)
+                continue;
+
+            // 有下一个相连点
+            ended = false;
+            let eachWay = [];
+            eachWay.push(...ways);
+            eachWay.push(eachPoint);
+            this.walkRoadWayWithStart(nextCompareIndex, eachWay, roadPoints, targets);
+        }
+        // 路径到达终点
+        if (ended) {
+            targets.push(ways);
+        }
+    },
+
 });
 
 jkr.player = Player.getInstance();

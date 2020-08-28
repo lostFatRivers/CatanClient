@@ -62,7 +62,9 @@ cc.Class({
         let color = jkr.Utils.hex2color(colorStr);
         this.setColor(color);
         this.roleIndex = roleIndex;
-
+        if (jkr.player.getMyRoleIndex() === roleIndex) {
+            jkr.player.addSelfRoad(this.roadKey);
+        }
         jkr.gameScene.hideConfirmBuildPopUp();
         jkr.player.checkPreRound();
     },

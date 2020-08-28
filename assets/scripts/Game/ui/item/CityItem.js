@@ -86,9 +86,12 @@ cc.Class({
         this.smallNode.active = cityType === 0;
         this.bigNode.active = cityType === 1;
         if (this.cityType === 0) {
-            let gameSM = jkr.player.getGameSM();
-            if (gameSM.is("preRound2") && jkr.player.getMyRoleIndex() === roleIndex) {
-                this.preRoundGiveResource();
+            if (jkr.player.getMyRoleIndex() === roleIndex) {
+                let gameSM = jkr.player.getGameSM();
+                if (gameSM.is("preRound2")) {
+                    this.preRoundGiveResource();
+                }
+                jkr.player.addSelfCity(this.cityKey);
             }
         }
         if (jkr.player.getMyRoleIndex() === roleIndex) {
