@@ -416,6 +416,7 @@ let Player = cc.Class({
     addSelfRoad: function(roadKey) {
         let selfRoleData = this.getRoleData(this.selfRoleIndex);
         selfRoleData.roads.push(roadKey);
+        jkr.Logger.debug("all roads:", JSON.stringify(selfRoleData.roads));
         this.countRoadMaxLength();
     },
 
@@ -496,7 +497,7 @@ let Player = cc.Class({
         for (let i = 0; i < startPoints.length; i++) {
             let startPoint = startPoints[i];
             let ways = [startPoint];
-            this.walkRoadWayWithStart(1, ways, roadPoints, allWays);
+            this.walkRoadWayWithStart(-1, ways, roadPoints, allWays);
         }
         return allWays;
     },
@@ -507,22 +508,33 @@ let Player = cc.Class({
         for (let i = 0; i < roadPoints.length; i++) {
             let eachPoint = roadPoints[i];
             let nextCompareIndex = -1;
-            // 第一个点作为下个路的起点
             if (compareIndex === 0) {
+                // 第一个点作为下个路的起点
                 if (eachPoint[0] === startPoint[0] && eachPoint[1] !== startPoint[1]) {
                     nextCompareIndex = 1;
                 } else if (eachPoint[1] === startPoint[0] && eachPoint[0] !== startPoint[1]) {
                     nextCompareIndex = 0;
                 }
-            }
-            // 第二个点作为下个路的起点
-            else if (compareIndex === 1) {
+            } else if (compareIndex === 1) {
+                // 第二个点作为下个路的起点
                 if (eachPoint[0] === startPoint[1] && eachPoint[1] !== startPoint[0]) {
                     nextCompareIndex = 1;
                 } else if (eachPoint[1] === startPoint[1] && eachPoint[0] !== startPoint[0]) {
                     nextCompareIndex = 0;
                 }
+            } else {
+                // 未知点起点
+                if (eachPoint[0] === startPoint[0] && eachPoint[1] !== startPoint[1]) {
+                    nextCompareIndex = 1;
+                } else if (eachPoint[1] === startPoint[0] && eachPoint[0] !== startPoint[1]) {
+                    nextCompareIndex = 0;
+                } else if (eachPoint[0] === startPoint[1] && eachPoint[1] !== startPoint[0]) {
+                    nextCompareIndex = 1;
+                } else if (eachPoint[1] === startPoint[1] && eachPoint[0] !== startPoint[0]) {
+                    nextCompareIndex = 0;
+                }
             }
+
             // 点不相连
             if (nextCompareIndex === -1)
                 continue;
@@ -543,6 +555,39 @@ let Player = cc.Class({
         }
     },
 
+    roleMaxRoadLength: function(roleIndex, roadLength) {
+        let selfRoleData = this.getRoleData(this.selfRoleIndex);
+        if (selfRoleData.index === roleIndex) {
+            if (!selfRoleData.isMaxRoadLength) {
+                selfRoleData.isMaxRoadLength = true;
+                this.refreshSelfTotalScore();
+            }
+        } else {
+            if (selfRoleData.isMaxRoadLength) {
+                selfRoleData.isMaxRoadLength = false;
+                this.refreshSelfTotalScore();
+            }
+        }
+        let maxRoleData = this.getRoleData(roleIndex);
+        jkr.gameScene.showCongratulations(jkr.constant.CongratulationTypes.MAX_ROAD_LENGTH, maxRoleData.roleName, maxRoleData.color, roadLength)
+    },
+
+    roleMaxRobTimes: function(roleIndex, robTimes) {
+        let selfRoleData = this.getRoleData(this.selfRoleIndex);
+        if (selfRoleData.index === roleIndex) {
+            if (!selfRoleData.isMaxRobTimes) {
+                selfRoleData.isMaxRobTimes = true;
+                this.refreshSelfTotalScore();
+            }
+        } else {
+            if (selfRoleData.isMaxRobTimes) {
+                selfRoleData.isMaxRobTimes = false;
+                this.refreshSelfTotalScore();
+            }
+        }
+        let maxRoleData = this.getRoleData(roleIndex);
+        jkr.gameScene.showCongratulations(jkr.constant.CongratulationTypes.MAX_ROB_TIMES, maxRoleData.roleName, maxRoleData.color, robTimes)
+    },
 });
 
 jkr.player = Player.getInstance();

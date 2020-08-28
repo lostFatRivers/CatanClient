@@ -19,6 +19,7 @@ let PageConstant = {
     PAGE_TYPE_BUILD_CONFIRM: 11,                                // 页面唯一标示 ---------- build confirm
     PAGE_TYPE_EXCHANGE: 12,                                     // 页面唯一标示 ---------- 资源交换
     PAGE_TYPE_OTHER_EXCHANGE_BACK: 13,                          // 页面唯一标示 ---------- 资源交换其他玩家反馈
+    PAGE_TYPE_CONGRATULATION: 14,                               // 页面唯一标示 ---------- 玩家最长路或最大士兵通知
 };
 
 module.exports = PageConstant;

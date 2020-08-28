@@ -72,6 +72,12 @@ let GameConst = {
     exchangeBtnColor: {
         enable: "#1D363B",
         disable: "#0E1A1C",
+    },
+
+    // 祝贺类型
+    CongratulationTypes: {
+        MAX_ROAD_LENGTH: 1,
+        MAX_ROB_TIMES: 2,
     }
 
 };

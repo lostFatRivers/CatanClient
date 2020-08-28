@@ -183,7 +183,7 @@
       "array": [
         0,
         0,
-        633.0645701664247,
+        624.4043161285803,
         0,
         0,
         0,
@@ -2794,6 +2794,9 @@
     },
     "otherExchangeBackPrefab": {
       "__uuid__": "83b78bb8-ee80-45f4-8bfd-54818c7dd62e"
+    },
+    "congratulationPrefab": {
+      "__uuid__": "39f6deae-9ed0-41c3-8d21-fb9f4d80daa4"
     },
     "_id": "1b+IQOl4FEUpJi+3VYZ841"
   }

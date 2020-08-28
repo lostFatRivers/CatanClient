@@ -25,6 +25,8 @@ let ServerMessageModule = cc.Class({
         jkr.handlerManager.registerHandler(jkr.messageType.SC_RESUME_EXCHANGE, msg => this.onResumeExchange(msg));
         jkr.handlerManager.registerHandler(jkr.messageType.SC_CONFIRM_EXCHANGE, msg => this.onConfirmExchange(msg));
         jkr.handlerManager.registerHandler(jkr.messageType.SC_SEND_CHAT, msg => this.onNewChat(msg));
+        jkr.handlerManager.registerHandler(jkr.messageType.SC_MAX_ROAD_LENGTH_NOTICE, msg => this.onMaxRoadNotice(msg));
+        jkr.handlerManager.registerHandler(jkr.messageType.SC_MAX_ROB_TIMES_NOTICE, msg => this.onMaxRobNotice(msg));
     },
 
     init: function (player) {
@@ -199,5 +201,15 @@ let ServerMessageModule = cc.Class({
             chatContent: msg.chatContent
         }
         jkr.eventBus.dispatchEvent(jkr.GameEventType.NEW_CHAT, data);
+    },
+
+    onMaxRoadNotice: function(msg) {
+        jkr.Logger.debug("onMaxRoadNotice success.", JSON.stringify(msg));
+        jkr.player.roleMaxRoadLength(msg.roleIndex, msg.roadLength);
+    },
+
+    onMaxRobNotice: function(msg) {
+        jkr.Logger.debug("onMaxRobNotice success.", JSON.stringify(msg));
+        jkr.player.roleMaxRobTimes(msg.roleIndex, msg.robTimes);
     },
 });

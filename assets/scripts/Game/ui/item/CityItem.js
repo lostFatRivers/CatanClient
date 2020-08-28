@@ -159,10 +159,12 @@ cc.Class({
             }
             if (this.cityType === -1) {
                 if (!jkr.player.checkResource(1, 1, 1, 0, 1)) {
+                    jkr.gameScene.showTipsItemRender("资源不足.", 0.3);
                     return false;
                 }
             } else if (this.cityType === 0) {
                 if (!jkr.player.checkResource(0, 2, 0, 3, 0)) {
+                    jkr.gameScene.showTipsItemRender("资源不足.", 0.3);
                     return false;
                 }
             }

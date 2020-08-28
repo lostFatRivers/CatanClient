@@ -14,6 +14,7 @@ cc.Class({
         buildConfirmPrefab: cc.Prefab,
         exchangePrefab: cc.Prefab,
         otherExchangeBackPrefab: cc.Prefab,
+        congratulationPrefab: cc.Prefab,
     },
 
     onLoadManager: function() {
@@ -195,6 +196,16 @@ cc.Class({
         this.loadCycleNode.active = false;
     },
 
+    showCongratulations: function(cType, roleName, roleColor, maxNum) {
+        let data = {
+            type: cType,
+            roleName: roleName,
+            roleColor: roleColor,
+            num: maxNum
+        }
+        this.showPage(jkr.pageConstant.PAGE_TYPE_CONGRATULATION, data);
+    },
+
     showColorPopUp: function() {
         this.showPage(jkr.pageConstant.PAGE_TYPE_SELECT_COLOR);
     },
@@ -312,6 +323,13 @@ cc.Class({
                 pageScript: "OtherExchangeBackPopUp",
                 blackNodeType: jkr.pageConstant.BLACK_NODE_TYPE_NONE,
                 showAnimType: jkr.pageConstant.OPEN_PAGE_ANIMATION_OPACITY,
+            },
+            {
+                pageType: jkr.pageConstant.PAGE_TYPE_CONGRATULATION,
+                createPrefab: this.congratulationPrefab,
+                pageScript: "CongratulationPopUp",
+                blackNodeType: jkr.pageConstant.BLACK_NODE_TYPE_NONE,
+                showAnimType: jkr.pageConstant.OPEN_PAGE_ANIMATION_NONE,
             },
         ];
     },
