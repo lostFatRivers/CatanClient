@@ -48,14 +48,14 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 574
+        "__id__": 575
       },
       {
-        "__id__": 575
+        "__id__": 576
       }
     ],
     "_prefab": {
-      "__id__": 576
+      "__id__": 577
     },
     "_opacity": 255,
     "_color": {
@@ -19813,10 +19813,13 @@
     "_components": [
       {
         "__id__": 571
+      },
+      {
+        "__id__": 573
       }
     ],
     "_prefab": {
-      "__id__": 573
+      "__id__": 574
     },
     "_opacity": 255,
     "_color": {
@@ -19840,8 +19843,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -246.038,
-        -520,
+        285,
+        533,
         0,
         0,
         0,
@@ -19888,9 +19891,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
+      "r": 230,
+      "g": 230,
+      "b": 230,
       "a": 255
     },
     "_contentSize": {
@@ -19948,7 +19951,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "21574fdf-c207-403b-b559-650a9b7fb37e"
+      "__uuid__": "e35768d0-856d-4056-ae8b-56ef55eb3069"
     },
     "_type": 1,
     "_sizeMode": 0,
@@ -20068,7 +20071,7 @@
       "a": 200
     },
     "_N$normalSprite": {
-      "__uuid__": "21574fdf-c207-403b-b559-650a9b7fb37e"
+      "__uuid__": "e35768d0-856d-4056-ae8b-56ef55eb3069"
     },
     "_N$pressedSprite": {
       "__uuid__": "e9ec654c-97a2-4787-9325-e6a10375219a"
@@ -20099,6 +20102,33 @@
     "_componentId": "b6d6b+WpHhLBpTMptWQPBRH",
     "handler": "onClickExit",
     "customEventData": ""
+  },
+  {
+    "__type__": "cc.Widget",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 566
+    },
+    "_enabled": true,
+    "alignMode": 1,
+    "_target": null,
+    "_alignFlags": 33,
+    "_left": 0,
+    "_right": 10,
+    "_top": 10,
+    "_bottom": 0,
+    "_verticalCenter": 0,
+    "_horizontalCenter": 0,
+    "_isAbsLeft": true,
+    "_isAbsRight": true,
+    "_isAbsTop": true,
+    "_isAbsBottom": true,
+    "_isAbsHorizontalCenter": true,
+    "_isAbsVerticalCenter": true,
+    "_originalWidth": 0,
+    "_originalHeight": 0,
+    "_id": ""
   },
   {
     "__type__": "cc.PrefabInfo",

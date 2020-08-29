@@ -47,13 +47,11 @@ cc.Class({
         }
     },
 
-    onEnable() {
+    showPageBegan() {
         jkr.Logger.debug("onEnable");
         this.selected = false;
         this.oldIndex = -1;
-        this.scheduleOnce(() => {
-            this.syncRoleColor();
-        }, 0.5);
+        this.syncRoleColor();
     },
 
     showPageEnded: function() {
