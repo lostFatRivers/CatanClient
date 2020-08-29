@@ -5,7 +5,8 @@ cc.Class({
 
     properties: {
         masterNameLabel: cc.Label,
-        posNodeArray: [cc.Node]
+        posNodeArray: [cc.Node],
+        joinBtn: cc.Button,
     },
 
     initRoomData: function(roomData) {
@@ -25,6 +26,7 @@ cc.Class({
                 eachPosNode.color = cc.color("#000000");
             }
         }
+        this.joinBtn.interactable = playerIds.length < 4;
     },
 
     onClickJoin: function() {

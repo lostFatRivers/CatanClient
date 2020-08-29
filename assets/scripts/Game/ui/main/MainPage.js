@@ -1,7 +1,7 @@
 let jkr = require("Jkr");
 
 cc.Class({
-    extends: jkr.BaseUI,
+    extends: jkr.BasePage,
 
     properties: {
         mapPanel: cc.Node,
@@ -89,6 +89,7 @@ cc.Class({
             this.roleItems[i].destroy();
         }
         this.roleItems = [];
+        jkr.gameScene.hideChatInput();
     },
 
     initMap: function() {
@@ -365,11 +366,31 @@ cc.Class({
 
     },
 
+    onClickHelp: function() {
+
+    },
+    
+    onClickExit: function() {
+        if (jkr.player.isRoomMaster()) {
+            let msg = {
+                type: jkr.messageType.CS_DELETE_ROOM,
+                roomId: jkr.player.getRoomId(),
+            };
+            jkr.player.sendMessage(msg);
+        } else {
+            let msg = {
+                type: jkr.messageType.CS_EXIT_ROOM,
+                roomId: jkr.player.getRoomId(),
+            };
+            jkr.player.sendMessage(msg);
+        }
+    },
+
     robResource: function() {
         jkr.gameScene.showTipsItemRender("海盗来了...", 0.5);
         let totalNum = jkr.player.getTotalResourceNum();
         if (totalNum > jkr.constant.ROB_NUMBER) {
-            jkr.gameScene.showRobPopUp();
+            jkr.gameScene.showSysRobPopUp();
         }
     },
 

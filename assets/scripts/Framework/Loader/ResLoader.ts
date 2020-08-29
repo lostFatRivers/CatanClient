@@ -298,7 +298,7 @@ export default class ResLoader {
                 let item = this._getResItem(this._sceneDepends[i], undefined);
                 if (!item) {
                     this._resMap.delete(this._sceneDepends[i]);
-                    cc.log(`delete untrack res ${this._sceneDepends[i]}`);
+                    //cc.log(`delete untrack res ${this._sceneDepends[i]}`);
                 }
                 // 判断是不是持久节点依赖的资源
                 else if (!persistDepends.has(this._sceneDepends[i])) {

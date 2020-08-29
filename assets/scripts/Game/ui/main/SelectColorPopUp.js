@@ -56,6 +56,10 @@ cc.Class({
         }, 0.5);
     },
 
+    showPageEnded: function() {
+        jkr.gameScene.showChatInput();
+    },
+
     onClickSelected: function() {
         if (this.oldIndex === -1) {
             jkr.Logger.debug("not select color.");

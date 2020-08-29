@@ -171,7 +171,7 @@
       "array": [
         0,
         0,
-        364.7996696972607,
+        499.68971775226015,
         0,
         0,
         0,
@@ -285,16 +285,8 @@
     "loadingPagePrefab": {
       "__uuid__": "9e3e75d9-fd6a-4891-a492-c4916a2ebb48"
     },
-    "versionUpdatePagePrefab": {
-      "__uuid__": "0ba83881-f969-4e89-bbb2-2cfc85556f84"
-    },
-    "manifestUrl": {
-      "__uuid__": "dc67a049-d845-40bb-8c39-dd07906e5cb5"
-    },
-    "_updating": false,
-    "_canRetry": false,
-    "_storagePath": "",
-    "_startHotUpdate": false,
+    "totalProgress": 2,
+    "tickTime": 0,
     "_id": "cenaoMFBZB3bvHaf8MZeEi"
   }
 ]

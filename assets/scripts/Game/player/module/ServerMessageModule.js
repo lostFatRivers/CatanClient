@@ -57,7 +57,11 @@ let ServerMessageModule = cc.Class({
 
     onExitRoom: function(msg) {
         jkr.Logger.debug("onExitRoom success.");
-        jkr.gameScene.hideRoomDetailPopUp();
+        if (jkr.player.getGameSM()) {
+            jkr.gameScene.hideMainPage();
+        } else {
+            jkr.gameScene.hideRoomDetailPopUp();
+        }
     },
 
     onJoinRoom: function(msg) {
@@ -70,8 +74,9 @@ let ServerMessageModule = cc.Class({
         jkr.Utils.seed = msg.seed;
         let myGameIndex = msg.playerIndex;
         let roles = msg.allGameRoles;
+        let roomMaster = msg.roomMaster;
         jkr.Logger.debug("my role index:", myGameIndex, "all roles:", JSON.stringify(roles));
-        jkr.player.initGameRoles(msg.roomId, myGameIndex, roles);
+        jkr.player.initGameRoles(msg.roomId, myGameIndex, roles, roomMaster);
         jkr.player.initStateMachine();
         jkr.gameScene.hideRoomDetailPopUp();
         jkr.gameScene.hideChatInput();

@@ -93,6 +93,7 @@ cc.Class({
     },
 
     onClickCreateRoom: function() {
+        jkr.Logger.debug("roomId:", !!jkr.player.getRoomId());
         if (jkr.player.getRoomId()) {
             return;
         }

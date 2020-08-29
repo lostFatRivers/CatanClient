@@ -15,6 +15,7 @@ cc.Class({
         exchangePrefab: cc.Prefab,
         otherExchangeBackPrefab: cc.Prefab,
         congratulationPrefab: cc.Prefab,
+        sysRobPrefab: cc.Prefab,
     },
 
     onLoadManager: function() {
@@ -90,6 +91,8 @@ cc.Class({
             this.mainPage.active = false;
             this.mainPageObj.clearGameMain();
         }
+        jkr.player.clearGameData();
+        this.showRoomPage();
     },
 
     createRoomPage: function() {
@@ -98,6 +101,14 @@ cc.Class({
             this.mainNode.addChild(roomPage);
             this.roomPageObj = roomPage.getComponent("RoomPage");
         });
+    },
+
+    showRoomPage: function() {
+        if (!this.roomPageObj) {
+            this.createRoomPage();
+        } else {
+            this.roomPageObj.node.active = true;
+        }
     },
     
     hideRoomPage: function() {
@@ -222,14 +233,6 @@ cc.Class({
         this.closePage(jkr.pageConstant.PAGE_TYPE_THROW_DICE);
     },
 
-    showRobPopUp: function() {
-        //this.showPage(jkr.pageConstant.PAGE_TYPE_ROB);
-    },
-
-    hideRobPopUp: function() {
-        //this.closePage(jkr.pageConstant.PAGE_TYPE_ROB);
-    },
-
     showSettingPage: function() {
         this.showPage(jkr.pageConstant.PAGE_TYPE_SETTING);
     },
@@ -264,6 +267,14 @@ cc.Class({
 
     hideOtherExchangeBackPopUp: function() {
         this.closePage(jkr.pageConstant.PAGE_TYPE_OTHER_EXCHANGE_BACK);
+    },
+
+    showSysRobPopUp: function() {
+        this.showPage(jkr.pageConstant.PAGE_TYPE_SYSTEM_ROB);
+    },
+
+    hideSysRobPopUp: function() {
+        this.closePage(jkr.pageConstant.PAGE_TYPE_SYSTEM_ROB);
     },
 
     update (dt) {
@@ -330,6 +341,13 @@ cc.Class({
                 pageScript: "CongratulationPopUp",
                 blackNodeType: jkr.pageConstant.BLACK_NODE_TYPE_NONE,
                 showAnimType: jkr.pageConstant.OPEN_PAGE_ANIMATION_NONE,
+            },
+            {
+                pageType: jkr.pageConstant.PAGE_TYPE_SYSTEM_ROB,
+                createPrefab: this.sysRobPrefab,
+                pageScript: "SysRobPopUp",
+                blackNodeType: jkr.pageConstant.BLACK_NODE_TYPE_NONE,
+                showAnimType: jkr.pageConstant.OPEN_PAGE_ANIMATION_OPACITY,
             },
         ];
     },

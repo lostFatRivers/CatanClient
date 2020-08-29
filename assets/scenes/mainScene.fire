@@ -183,7 +183,7 @@
       "array": [
         0,
         0,
-        624.4043161285803,
+        501.4217445035679,
         0,
         0,
         0,
@@ -2797,6 +2797,9 @@
     },
     "congratulationPrefab": {
       "__uuid__": "39f6deae-9ed0-41c3-8d21-fb9f4d80daa4"
+    },
+    "sysRobPrefab": {
+      "__uuid__": "4451b527-d139-4d25-b455-2ac2d3b529aa"
     },
     "_id": "1b+IQOl4FEUpJi+3VYZ841"
   }

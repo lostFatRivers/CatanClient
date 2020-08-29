@@ -96,8 +96,20 @@ let Player = cc.Class({
         jkr.handlerManager.onMessage(jsonMsg.type, jsonMsg);
     },
 
-    initGameRoles: function(roomId, roleIndex, roles) {
+    clearGameData: function() {
+        this.roomId = null;
+        this.selfRoleIndex = -1;
+        this.gameRoles = {};
+        this.selfResources = {};
+        this.gameStateMachine = null;
+        this.gameRoleSize = 0;
+        this.roomMaster = null;
+    },
+
+    initGameRoles: function(roomId, roleIndex, roles, roomMaster) {
         this.roomId = roomId;
+
+        this.roomMaster = roomMaster;
 
         // 自己的玩家下标
         this.selfRoleIndex = roleIndex;
@@ -177,6 +189,10 @@ let Player = cc.Class({
                 onLeaveRoundEnd: (sl, res) => this.roundEnd(),
             }
         });
+    },
+    
+    isRoomMaster: function() {
+        return this.roomMaster === this._gameData.playerBaseData.account;
     },
 
     showColorPopUp: function() {
