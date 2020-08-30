@@ -16,6 +16,7 @@ cc.Class({
         otherExchangeBackPrefab: cc.Prefab,
         congratulationPrefab: cc.Prefab,
         sysRobPrefab: cc.Prefab,
+        sysRobWaitPrefab: cc.Prefab,
     },
 
     onLoadManager: function() {
@@ -153,6 +154,19 @@ cc.Class({
         this.scheduleOnce(() => lamb(), delayTime)
     },
 
+    // 转菊花延迟执行任务
+    loadingDelayTask: function(lamb, delayTime) {
+        this.showLoadingCycle();
+        this.scheduleOnce(() => {
+            this.hideLoadingCycle();
+            lamb();
+        }, delayTime);
+    },
+
+    showRobOtherMask: function() {
+        
+    },
+
     // 初始化tips提示界面
     initTipsItemRender: function() {
         this.tipsItemRender = cc.instantiate(this.commonTipPrefab);
@@ -277,6 +291,14 @@ cc.Class({
         this.closePage(jkr.pageConstant.PAGE_TYPE_SYSTEM_ROB);
     },
 
+    showSysRobWaitPopUp: function(data) {
+        this.showPage(jkr.pageConstant.PAGE_TYPE_SYSTEM_ROB_WAIT, data);
+    },
+
+    hideSysRobWaitPopUp: function() {
+        this.closePage(jkr.pageConstant.PAGE_TYPE_SYSTEM_ROB_WAIT);
+    },
+
     update (dt) {
         this.curTime += dt;
         if (this.curTime >= 1) {
@@ -346,6 +368,13 @@ cc.Class({
                 pageType: jkr.pageConstant.PAGE_TYPE_SYSTEM_ROB,
                 createPrefab: this.sysRobPrefab,
                 pageScript: "SysRobPopUp",
+                blackNodeType: jkr.pageConstant.BLACK_NODE_TYPE_NONE,
+                showAnimType: jkr.pageConstant.OPEN_PAGE_ANIMATION_OPACITY,
+            },
+            {
+                pageType: jkr.pageConstant.PAGE_TYPE_SYSTEM_ROB_WAIT,
+                createPrefab: this.sysRobWaitPrefab,
+                pageScript: "SysRobWaitPopUp",
                 blackNodeType: jkr.pageConstant.BLACK_NODE_TYPE_NONE,
                 showAnimType: jkr.pageConstant.OPEN_PAGE_ANIMATION_OPACITY,
             },

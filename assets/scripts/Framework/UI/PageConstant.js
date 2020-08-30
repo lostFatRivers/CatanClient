@@ -21,6 +21,7 @@ let PageConstant = {
     PAGE_TYPE_OTHER_EXCHANGE_BACK: 13,                          // 页面唯一标示 ---------- 资源交换其他玩家反馈
     PAGE_TYPE_CONGRATULATION: 14,                               // 页面唯一标示 ---------- 玩家最长路或最大士兵通知
     PAGE_TYPE_SYSTEM_ROB: 15,                                   // 页面唯一标示 ---------- 海盗抢劫7数量以上资源
+    PAGE_TYPE_SYSTEM_ROB_WAIT: 16,                              // 页面唯一标示 ---------- 被抢等待
 };
 
 module.exports = PageConstant;

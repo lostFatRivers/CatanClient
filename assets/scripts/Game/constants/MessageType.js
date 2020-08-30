@@ -89,5 +89,12 @@ jkr.messageType = {
 
     // 最大士兵数通知
     SC_MAX_ROB_TIMES_NOTICE: 1045,
+
+    // 开始被抢
+    SC_SYSTEM_ROB: 1047,
+
+    // 被抢内容
+    CS_ROB_OUT_SOURCE: 1048,
+    SC_ROB_OUT_SOURCE: 1049,
 };
 

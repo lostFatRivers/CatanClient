@@ -27,6 +27,8 @@ let ServerMessageModule = cc.Class({
         jkr.handlerManager.registerHandler(jkr.messageType.SC_SEND_CHAT, msg => this.onNewChat(msg));
         jkr.handlerManager.registerHandler(jkr.messageType.SC_MAX_ROAD_LENGTH_NOTICE, msg => this.onMaxRoadNotice(msg));
         jkr.handlerManager.registerHandler(jkr.messageType.SC_MAX_ROB_TIMES_NOTICE, msg => this.onMaxRobNotice(msg));
+        jkr.handlerManager.registerHandler(jkr.messageType.SC_SYSTEM_ROB, msg => this.onSysRobRoles(msg));
+        jkr.handlerManager.registerHandler(jkr.messageType.SC_ROB_OUT_SOURCE, msg => this.onSysRobRoleFinish(msg));
     },
 
     init: function (player) {
@@ -216,5 +218,18 @@ let ServerMessageModule = cc.Class({
     onMaxRobNotice: function(msg) {
         jkr.Logger.debug("onMaxRobNotice success.", JSON.stringify(msg));
         jkr.player.roleMaxRobTimes(msg.roleIndex, msg.robTimes);
+    },
+
+    onSysRobRoles: function(msg) {
+        jkr.Logger.debug("onSysRobRoles success.", JSON.stringify(msg));
+        if (msg.robRoles.length <= 0) {
+            return;
+        }
+        jkr.gameScene.loadingDelayTask(() => jkr.gameScene.showSysRobWaitPopUp(msg), 0.5);
+    },
+
+    onSysRobRoleFinish: function(msg) {
+        jkr.Logger.debug("onSysRobRoleFinish success.", JSON.stringify(msg));
+        jkr.eventBus.dispatchEvent(jkr.GameEventType.SYSTEM_ROB_ONE_FINISHED, msg.roleIndex);
     },
 });

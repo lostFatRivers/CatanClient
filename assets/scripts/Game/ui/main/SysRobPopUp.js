@@ -88,6 +88,17 @@ cc.Class({
         }
         jkr.player.costResource(this.outBrickNum, this.outRiceNum, this.outSheepNum, this.outStoneNum, this.outWoodNum);
         jkr.Logger.debug("lastWood:", this.ownWoodNum, "lastBrick:", this.ownBrickNum, "lastSheep:", this.ownSheepNum, "lastRice:", this.ownRiceNum, "lastStone:", this.ownStoneNum, )
+        let msg = {
+            type: jkr.messageType.CS_ROB_OUT_SOURCE,
+            roleIndex: jkr.player.getMyRoleIndex(),
+            brickNum: this.outBrickNum,
+            riceNum: this.outRiceNum,
+            sheepNum: this.outSheepNum,
+            stoneNum: this.outStoneNum,
+            woodNum: this.outWoodNum,
+        };
+        jkr.player.sendMessage(msg);
+
         jkr.gameScene.hideSysRobPopUp();
     },
 

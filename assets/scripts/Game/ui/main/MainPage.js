@@ -8,6 +8,9 @@ cc.Class({
         cityPanel: cc.Node,
         roadPanel: cc.Node,
 
+        buildingPanel: cc.Node,
+        robMaskNode: cc.Node,
+
         mapLandPrefab: cc.Prefab,
 
         cityPrefab: cc.Prefab,
@@ -28,6 +31,9 @@ cc.Class({
     start() {
         this.logicPosToCity = {};
         this.twoLogicPosToRoad = {};
+
+        this.robMaskNode.position = this.buildingPanel.position;
+        this.robMaskNode.active = false;
 
         this.initBuildings();
     },

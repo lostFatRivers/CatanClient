@@ -23,6 +23,7 @@ let GameEventType = cc.Enum({
     EXCHANGE_RESUME: "EXCHANGE_RESUME",                     // 拒绝交换通知
     EXCHANGE_SUCCESS: "EXCHANGE_SUCCESS",                   // 交换成功通知
     NEW_CHAT: "NEW_CHAT",                                   // 收到新聊天消息
+    SYSTEM_ROB_ONE_FINISHED: "SYSTEM_ROB_ONE_FINISHED",     // 海盗来了被抢
 
     ROLE_DATA_REFRESH: "ROLE_DATA_REFRESH_",                // 玩家信息刷新
 });
