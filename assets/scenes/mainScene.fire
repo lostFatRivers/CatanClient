@@ -183,7 +183,7 @@
       "array": [
         0,
         0,
-        607.941389708989,
+        603.6113228307198,
         0,
         0,
         0,
@@ -2800,6 +2800,9 @@
     },
     "sysRobPrefab": {
       "__uuid__": "4451b527-d139-4d25-b455-2ac2d3b529aa"
+    },
+    "sysRobWaitPrefab": {
+      "__uuid__": "01bea5bf-7e01-4538-94be-b37eaee9ddf9"
     },
     "_id": "1b+IQOl4FEUpJi+3VYZ841"
   }

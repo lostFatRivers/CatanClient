@@ -29,6 +29,10 @@ let ServerMessageModule = cc.Class({
         jkr.handlerManager.registerHandler(jkr.messageType.SC_MAX_ROB_TIMES_NOTICE, msg => this.onMaxRobNotice(msg));
         jkr.handlerManager.registerHandler(jkr.messageType.SC_SYSTEM_ROB, msg => this.onSysRobRoles(msg));
         jkr.handlerManager.registerHandler(jkr.messageType.SC_ROB_OUT_SOURCE, msg => this.onSysRobRoleFinish(msg));
+        jkr.handlerManager.registerHandler(jkr.messageType.SC_SYSTEM_ROB_FINISHED, msg => this.onSysRobFinish());
+        jkr.handlerManager.registerHandler(jkr.messageType.SC_ROBBER_PUT_MAP, msg => this.onRobberPut(msg));
+        jkr.handlerManager.registerHandler(jkr.messageType.SC_PLAYER_SELECTED_ROB_TARGET, msg => this.onPlayerSelectRobTarget(msg));
+        jkr.handlerManager.registerHandler(jkr.messageType.SC_PLAYER_ROB_TARGET_BACK, msg => this.onPlayerRobTargetBack(msg));
     },
 
     init: function (player) {
@@ -231,5 +235,37 @@ let ServerMessageModule = cc.Class({
     onSysRobRoleFinish: function(msg) {
         jkr.Logger.debug("onSysRobRoleFinish success.", JSON.stringify(msg));
         jkr.eventBus.dispatchEvent(jkr.GameEventType.SYSTEM_ROB_ONE_FINISHED, msg.roleIndex);
+    },
+
+    onSysRobFinish: function() {
+        jkr.Logger.debug("onSysRobFinish success.");
+        jkr.gameScene.delayTask(() => {
+            jkr.gameScene.hideSysRobWaitPopUp();
+            if (jkr.player.isMyRound()) {
+                jkr.gameScene.showRobOtherMask();
+            }
+        }, 1);
+    },
+
+    onRobberPut: function(msg) {
+        jkr.Logger.debug("onRobberPut success.", JSON.stringify(msg));
+        jkr.eventBus.dispatchEvent(jkr.GameEventType.PLAYER_ROB_ONE, msg.mapIndex);
+    },
+
+    onPlayerSelectRobTarget: function(msg) {
+        jkr.Logger.debug("onPlayerSelectRobTarget success.", JSON.stringify(msg));
+        if (msg.roleIndex !== jkr.player.getMyRoleIndex()) {
+            return;
+        }
+        jkr.player.randomRobbedSource();
+    },
+
+    onPlayerRobTargetBack: function(msg) {
+        jkr.Logger.debug("onPlayerRobTargetBack success.", JSON.stringify(msg));
+        if (msg.roleIndex !== jkr.player.getMyRoleIndex()) {
+            return;
+        }
+        jkr.player.addSelfResource(msg.sourceType, 1);
+        jkr.player.refreshResourceView();
     },
 });

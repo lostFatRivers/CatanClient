@@ -15,7 +15,7 @@ cc.Class({
 
     showPageBegan: function() {
         this.selectedRoleIndex = -1;
-        this.roleItem = {};
+        this.roleItem = [];
         for (let i = 0; i < this.data.robRoles.length; i++) {
             let eachRobRole = this.data.robRoles[i];
 
@@ -24,7 +24,7 @@ cc.Class({
             otherObj.initRobItem(eachRobRole.roleIndex, eachRobRole.totalSourceNum);
             otherObj.host = this;
             this.othersPanel.addChild(otherItem);
-            this.roleItem[i] = otherObj;
+            this.roleItem.push(otherObj);
         }
     },
 
@@ -37,14 +37,6 @@ cc.Class({
             let eachRoleObj = this.roleItem[i];
             if (eachRoleObj.roleIndex === roleIndex) {
                 eachRoleObj.robFinished();
-            }
-        }
-        let allRobbed = true;
-        for (let i = 0; i < this.roleItem.length; i++) {
-            let eachRoleObj = this.roleItem[i];
-            if (eachRoleObj.status === 0) {
-                allRobbed = false;
-                break;
             }
         }
     },

@@ -26,6 +26,7 @@ cc.Class({
 
     registerGameListener: function() {
         this.registerListener(jkr.GameEventType.MAP_NUMBER_KEY + jkr.constant.ROB_NUMBER, () => this.robResource());
+        this.registerListener(jkr.GameEventType.PLAYER_ROB_ONE, mData => this.onRobOver(mData));
     },
 
     start() {
@@ -100,7 +101,7 @@ cc.Class({
 
     initMap: function() {
         let robberIndex = jkr.Utils.getSeedRandomInt(0, 18);
-
+        this.currentRobberIndex = robberIndex;
         if (!this.landObjList || this.landObjList.length <= 0) {
             this.landObjList = [];
             for (let i = 0; i < 19; i++) {
@@ -465,4 +466,48 @@ cc.Class({
         }, 1);
     },
 
+    showRobMaskSlow: function() {
+        this.robMaskNode.active = true;
+        this.robMaskNode.opacity = 1;
+        cc.tween(this.robMaskNode)
+            .to(0.5, {opacity: 255})
+            .start();
+        for (let i = 0; i < this.landObjList.length; i++) {
+            let eachLandObj = this.landObjList[i];
+            eachLandObj.showRobImage();
+        }
+    },
+    
+    hideRobMask: function() {
+        this.robMaskNode.active = false;
+        for (let i = 0; i < this.landObjList.length; i++) {
+            let eachLandObj = this.landObjList[i];
+            eachLandObj.hideRobImage();
+        }
+    },
+
+    onRobOver: function(robberIndex) {
+        if (this.currentRobberIndex !== robberIndex) {
+            let oldLandObj = this.landObjList[this.currentRobberIndex];
+            oldLandObj.setRobber(false);
+            let newLandObj = this.landObjList[robberIndex];
+            newLandObj.setRobber(true);
+        }
+        this.hideRobMask();
+        this.currentRobberIndex = robberIndex;
+        let robLandObj = this.landObjList[robberIndex];
+        let roleIndexArray = robLandObj.getRoundRoleIndex();
+        let roleIndexExcludeSelf = [];
+        for (let i = 0; i < roleIndexArray.length; i++) {
+            let roleIndex = roleIndexArray[i];
+            if (roleIndex === jkr.player.getMyRoleIndex()) {
+                continue;
+            }
+            roleIndexExcludeSelf.push(roleIndex);
+        }
+        if (roleIndexExcludeSelf.length <= 0) {
+            return;
+        }
+        jkr.gameScene.showPlayerRobOtherPopUp({robRoles: roleIndexExcludeSelf});
+    },
 });

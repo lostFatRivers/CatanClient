@@ -96,5 +96,20 @@ jkr.messageType = {
     // 被抢内容
     CS_ROB_OUT_SOURCE: 1048,
     SC_ROB_OUT_SOURCE: 1049,
+
+    // 被抢结束
+    SC_SYSTEM_ROB_FINISHED: 1051,
+
+    // 海盗放在地块
+    CS_ROBBER_PUT_MAP: 1052,
+    SC_ROBBER_PUT_MAP: 1053,
+
+    // 玩家选择了抢劫目标
+    CS_PLAYER_SELECTED_ROB_TARGET: 1054,
+    SC_PLAYER_SELECTED_ROB_TARGET: 1055,
+
+    // 被抢劫玩家返回资源类型
+    CS_PLAYER_ROB_TARGET_BACK: 1056,
+    SC_PLAYER_ROB_TARGET_BACK: 1057,
 };
 

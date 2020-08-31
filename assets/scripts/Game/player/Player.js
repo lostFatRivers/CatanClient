@@ -604,6 +604,39 @@ let Player = cc.Class({
         let maxRoleData = this.getRoleData(roleIndex);
         jkr.gameScene.showCongratulations(jkr.constant.CongratulationTypes.MAX_ROB_TIMES, maxRoleData.roleName, maxRoleData.color, robTimes)
     },
+
+    setRobberOver: function(isOver) {
+        this.robberOver = isOver;
+    },
+
+    robberDone: function() {
+        return this.robberOver;
+    },
+
+    randomRobbedSource: function() {
+        let sourceTypeArray = [];
+        for (let eachKey in this.selfResources) {
+            if (!this.selfResources.hasOwnProperty(eachKey)) {
+                continue;
+            }
+            let sourceNum = this.selfResources[eachKey];
+            if (sourceNum > 0) {
+                sourceTypeArray.push(eachKey);
+            }
+        }
+        let randomKey = jkr.Utils.getRandomItemInList(sourceTypeArray);
+        this.selfResources[randomKey] -= 1;
+
+        let msg = {
+            type: jkr.messageType.CS_PLAYER_SELECTED_ROB_TARGET,
+            sourceType: randomKey,
+        };
+        this.sendMessage(msg);
+
+        jkr.gameScene.delayTask(() => {
+            this.refreshResourceView();
+        }, 0.1);
+    },
 });
 
 jkr.player = Player.getInstance();

@@ -117,6 +117,7 @@ cc.Class({
 
     addPressMapLand: function(mapLandObj) {
         this.mapLands.push(mapLandObj);
+        jkr.Logger.debug("mapLands length:", this.mapLands.length);
     },
 
     checkBuildEnable: function() {
@@ -237,6 +238,7 @@ cc.Class({
         this.roleIndex = -1;
         this.smallNode.active = false;
         this.bigNode.active = false;
+        this.mapLands = [];
     },
 
 });

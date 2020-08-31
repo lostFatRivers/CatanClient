@@ -10,6 +10,20 @@ cc.Class({
         robberImage: cc.Sprite,
     },
 
+    start() {
+        this.robberImage.node.on(cc.Node.EventType.TOUCH_END, () => {
+            if (!jkr.player.isMyRound() || jkr.player.robberDone() || !this.canTouchRobber) {
+                return;
+            }
+            jkr.player.setRobberOver(true);
+            let msg = {
+                type: jkr.messageType.CS_ROBBER_PUT_MAP,
+                mapIndex: this.mapIndex,
+            };
+            jkr.player.sendMessage(msg);
+        });
+    },
+
     unregisterListener: function() {
         this.removeAllGameListener();
     },
@@ -95,7 +109,8 @@ cc.Class({
 
     // 摇到本地块数字, 发放资源
     giveResource: function() {
-        if (this.mapType === jkr.constant.MAP_ROBBER) {
+        if (this.mapType === jkr.constant.MAP_ROBBER
+            || this.ratioNum === jkr.constant.ROB_NUMBER) {
             return;
         }
         for (let i = 0; i < this.roundCitys.length; i++) {
@@ -106,5 +121,43 @@ cc.Class({
             eachCityObj.giveOwnerResource(this.mapType);
         }
     },
+    
+    setRobber: function(isRobber) {
+        if (isRobber) {
+            this.robberImage.node.active = true;
+            this.robberImage.node.opacity = 255;
+        } else {
+            this.robberImage.node.active = false;
+        }
+        this.mapType = jkr.constant.MAP_ROBBER;
+    },
+    
+    showRobImage: function() {
+        this.robberImage.node.active = true;
+        this.robberImage.node.opacity = 1;
+        cc.tween(this.robberImage.node)
+            .to(0.3, {opacity: 180})
+            .start();
+        this.canTouchRobber = true;
+    },
+    
+    hideRobImage: function() {
+        this.canTouchRobber = false;
+        if (this.mapType === jkr.constant.MAP_ROBBER) {
+            return;
+        }
+        this.robberImage.node.active = false;
+    },
 
+    getRoundRoleIndex: function() {
+        let roleIndexArray = [];
+        for (let i = 0; i < this.roundCitys.length; i++) {
+            let eachCityObj = this.roundCitys[i];
+            if (!eachCityObj || eachCityObj.roleIndex < 0) {
+                continue;
+            }
+            roleIndexArray.push(eachCityObj.roleIndex);
+        }
+        return roleIndexArray;
+    },
 });
