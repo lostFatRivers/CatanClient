@@ -183,7 +183,7 @@
       "array": [
         0,
         0,
-        603.6113228307198,
+        603.7956178478975,
         0,
         0,
         0,
@@ -2803,6 +2803,12 @@
     },
     "sysRobWaitPrefab": {
       "__uuid__": "01bea5bf-7e01-4538-94be-b37eaee9ddf9"
+    },
+    "playerRobOtherPrefab": {
+      "__uuid__": "01f3851d-45a0-465c-adf8-3605025019be"
+    },
+    "skillPrefab": {
+      "__uuid__": "1fe5f93b-947e-493b-9c28-0da0acb4a1d3"
     },
     "_id": "1b+IQOl4FEUpJi+3VYZ841"
   }

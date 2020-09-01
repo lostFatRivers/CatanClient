@@ -34,6 +34,7 @@ cc.Class({
         this.ratioNum = ratio;
         this.mapPoints = [];
         this.roundCitys = [];
+        this.robberOn = false;
 
         this.initMapPoints(index);
         this.node.position = this.getPositionByIndex(index);
@@ -41,6 +42,7 @@ cc.Class({
         if (mapType === jkr.constant.MAP_ROBBER) {
             this.robberImage.node.active = true;
             this.ratioNode.active = false;
+            this.robberOn = true;
         } else {
             this.ratioNode.active = true;
             this.robberImage.node.active = false;
@@ -110,7 +112,8 @@ cc.Class({
     // 摇到本地块数字, 发放资源
     giveResource: function() {
         if (this.mapType === jkr.constant.MAP_ROBBER
-            || this.ratioNum === jkr.constant.ROB_NUMBER) {
+            || this.ratioNum === jkr.constant.ROB_NUMBER
+            || this.robberOn) {
             return;
         }
         for (let i = 0; i < this.roundCitys.length; i++) {
@@ -126,10 +129,11 @@ cc.Class({
         if (isRobber) {
             this.robberImage.node.active = true;
             this.robberImage.node.opacity = 255;
+            this.robberOn = true;
         } else {
             this.robberImage.node.active = false;
+            this.robberOn = false;
         }
-        this.mapType = jkr.constant.MAP_ROBBER;
     },
     
     showRobImage: function() {
@@ -143,7 +147,7 @@ cc.Class({
     
     hideRobImage: function() {
         this.canTouchRobber = false;
-        if (this.mapType === jkr.constant.MAP_ROBBER) {
+        if (this.robberOn) {
             return;
         }
         this.robberImage.node.active = false;
@@ -156,8 +160,12 @@ cc.Class({
             if (!eachCityObj || eachCityObj.roleIndex < 0) {
                 continue;
             }
+            if (roleIndexArray.indexOf(eachCityObj.roleIndex) >= 0) {
+                continue;
+            }
             roleIndexArray.push(eachCityObj.roleIndex);
         }
+        jkr.Logger.debug("rob round roleIndex:", JSON.stringify(roleIndexArray));
         return roleIndexArray;
     },
 });

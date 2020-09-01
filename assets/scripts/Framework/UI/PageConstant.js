@@ -23,6 +23,7 @@ let PageConstant = {
     PAGE_TYPE_SYSTEM_ROB: 15,                                   // 页面唯一标示 ---------- 海盗抢劫7数量以上资源
     PAGE_TYPE_SYSTEM_ROB_WAIT: 16,                              // 页面唯一标示 ---------- 被抢等待
     PAGE_TYPE_PLAYER_ROB_OTHER: 17,                             // 页面唯一标示 ---------- 玩家抢劫别人
+    PAGE_TYPE_SKILL: 18,                                        // 页面唯一标示 ---------- 技能页面
 };
 
 module.exports = PageConstant;

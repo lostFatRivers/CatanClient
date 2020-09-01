@@ -354,6 +354,7 @@ cc.Class({
             jkr.gameScene.showTipsItemRender("不是自己的回合", 0.3);
             return;
         }
+        jkr.player.setRobberOver(false);
         let msg = {
             type: jkr.messageType.CS_TURN_NEXT_ONE,
             roleIndex: jkr.player.getMyRoleIndex()
@@ -370,7 +371,7 @@ cc.Class({
     },
 
     onClickSkill: function() {
-
+        jkr.gameScene.showSkillPopUp();
     },
 
     onClickHelp: function() {
@@ -495,6 +496,9 @@ cc.Class({
         }
         this.hideRobMask();
         this.currentRobberIndex = robberIndex;
+        if (!jkr.player.isMyRound()) {
+            return;
+        }
         let robLandObj = this.landObjList[robberIndex];
         let roleIndexArray = robLandObj.getRoundRoleIndex();
         let roleIndexExcludeSelf = [];

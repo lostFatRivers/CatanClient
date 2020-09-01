@@ -39,7 +39,7 @@ cc.Class({
     },
 
     onClickSelect: function() {
-        let roleData = jkr.player.getRoleData(roleIndex);
+        let roleData = jkr.player.getRoleData(this.roleIndex);
         if (roleData.sourceCardNum <= 0) {
             jkr.gameScene.showTipsItemRender("目标没有足够的资源", 0.3);
             return;

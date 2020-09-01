@@ -18,6 +18,7 @@ cc.Class({
         sysRobPrefab: cc.Prefab,
         sysRobWaitPrefab: cc.Prefab,
         playerRobOtherPrefab: cc.Prefab,
+        skillPrefab: cc.Prefab,
     },
 
     onLoadManager: function() {
@@ -308,6 +309,14 @@ cc.Class({
         this.closePage(jkr.pageConstant.PAGE_TYPE_PLAYER_ROB_OTHER);
     },
 
+    showSkillPopUp: function() {
+        this.showPage(jkr.pageConstant.PAGE_TYPE_SKILL);
+    },
+
+    hideSkillPopUp: function() {
+        this.closePage(jkr.pageConstant.PAGE_TYPE_SKILL);
+    },
+
     update (dt) {
         this.curTime += dt;
         if (this.curTime >= 1) {
@@ -386,11 +395,19 @@ cc.Class({
                 pageScript: "SysRobWaitPopUp",
                 blackNodeType: jkr.pageConstant.BLACK_NODE_TYPE_NONE,
                 showAnimType: jkr.pageConstant.OPEN_PAGE_ANIMATION_OPACITY,
+                zIndex: 14,
             },
             {
                 pageType: jkr.pageConstant.PAGE_TYPE_PLAYER_ROB_OTHER,
                 createPrefab: this.playerRobOtherPrefab,
                 pageScript: "PlayerRobOtherPopUp",
+                blackNodeType: jkr.pageConstant.BLACK_NODE_TYPE_NONE,
+                showAnimType: jkr.pageConstant.OPEN_PAGE_ANIMATION_OPACITY,
+            },
+            {
+                pageType: jkr.pageConstant.PAGE_TYPE_SKILL,
+                createPrefab: this.skillPrefab,
+                pageScript: "SkillPopUp",
                 blackNodeType: jkr.pageConstant.BLACK_NODE_TYPE_NONE,
                 showAnimType: jkr.pageConstant.OPEN_PAGE_ANIMATION_OPACITY,
             },

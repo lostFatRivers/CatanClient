@@ -78,7 +78,20 @@ let GameConst = {
     CongratulationTypes: {
         MAX_ROAD_LENGTH: 1,
         MAX_ROB_TIMES: 2,
-    }
+    },
 
+    // 技能类型
+    SkillType: {
+        // 士兵
+        soldier: 1,
+        // 道路建设
+        roadBuilding: 2,
+        // 丰收之年
+        goodHarvest: 3,
+        // 垄断
+        monopoly: 4,
+        // 分数 1 点
+        score: 5,
+    }
 };
 module.exports = GameConst;

@@ -111,5 +111,9 @@ jkr.messageType = {
     // 被抢劫玩家返回资源类型
     CS_PLAYER_ROB_TARGET_BACK: 1056,
     SC_PLAYER_ROB_TARGET_BACK: 1057,
+
+    // 使用技能卡
+    CS_USE_SKILL_CARD: 1058,
+    SC_USE_SKILL_CARD: 1059,
 };
 

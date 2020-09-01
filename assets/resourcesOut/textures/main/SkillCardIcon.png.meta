@@ -1,0 +1,36 @@
+{
+  "ver": "2.3.4",
+  "uuid": "d78a136a-0b4c-49ec-bafb-016cf04ae77c",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 51,
+  "height": 54,
+  "platformSettings": {},
+  "subMetas": {
+    "SkillCardIcon": {
+      "ver": "1.0.4",
+      "uuid": "e57ec3b9-3789-407e-b566-b90ace2b6ca9",
+      "rawTextureUuid": "d78a136a-0b4c-49ec-bafb-016cf04ae77c",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 2,
+      "trimY": 2,
+      "width": 47,
+      "height": 50,
+      "rawWidth": 51,
+      "rawHeight": 54,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

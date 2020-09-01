@@ -29,7 +29,8 @@ cc.Class({
         this.playerNameLabel.string = roleData.roleName;
         this.bg1Sprite.color = jkr.Utils.hex2color(roleData.color);
         this.bg2Sprite.color = jkr.Utils.hex2color(roleData.color);
-        this.otherSourceName.string = roleData.sourceCardNum + "";
+        let robSource = Math.floor(roleData.sourceCardNum / 2);
+        this.otherSourceName.string = robSource + "";
     },
 
     runWaitingBars: function() {

@@ -265,6 +265,7 @@ let ServerMessageModule = cc.Class({
         if (msg.roleIndex !== jkr.player.getMyRoleIndex()) {
             return;
         }
+        jkr.gameScene.hidePlayerRobOtherPopUp();
         jkr.player.addSelfResource(msg.sourceType, 1);
         jkr.player.refreshResourceView();
     },

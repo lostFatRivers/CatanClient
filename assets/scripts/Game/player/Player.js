@@ -628,7 +628,7 @@ let Player = cc.Class({
         this.selfResources[randomKey] -= 1;
 
         let msg = {
-            type: jkr.messageType.CS_PLAYER_SELECTED_ROB_TARGET,
+            type: jkr.messageType.CS_PLAYER_ROB_TARGET_BACK,
             sourceType: randomKey,
         };
         this.sendMessage(msg);
