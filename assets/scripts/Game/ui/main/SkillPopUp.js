@@ -35,7 +35,14 @@ cc.Class({
     },
 
     onClickExchange: function() {
-
+        if (!jkr.player.checkResource(0, 1, 1, 1, 0)) {
+            jkr.gameScene.showTipsItemRender("资源不足.", 0.3);
+            return false;
+        }
+        let msg = {
+            type: jkr.messageType.CS_GET_SKILL_CARD
+        };
+        jkr.player.sendMessage(msg);
     },
 
     onClickUse: function() {

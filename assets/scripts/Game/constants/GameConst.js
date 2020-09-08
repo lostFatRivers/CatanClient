@@ -41,6 +41,15 @@ let GameConst = {
         "stone": 3,
     },
 
+    // 资源名字
+    sourceName: {
+        wood: "木头",
+        brick: "砖块",
+        sheep: "羊毛",
+        rice: "麦子",
+        stone: "矿石"
+    },
+
     ratioTypes: {
         "2": 1,
         "3": 2,
@@ -92,6 +101,7 @@ let GameConst = {
         monopoly: 4,
         // 分数 1 点
         score: 5,
-    }
+    },
+
 };
 module.exports = GameConst;

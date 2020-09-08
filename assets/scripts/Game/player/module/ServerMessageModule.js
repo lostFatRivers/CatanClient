@@ -33,6 +33,7 @@ let ServerMessageModule = cc.Class({
         jkr.handlerManager.registerHandler(jkr.messageType.SC_ROBBER_PUT_MAP, msg => this.onRobberPut(msg));
         jkr.handlerManager.registerHandler(jkr.messageType.SC_PLAYER_SELECTED_ROB_TARGET, msg => this.onPlayerSelectRobTarget(msg));
         jkr.handlerManager.registerHandler(jkr.messageType.SC_PLAYER_ROB_TARGET_BACK, msg => this.onPlayerRobTargetBack(msg));
+        jkr.handlerManager.registerHandler(jkr.messageType.SC_USE_SKILL_CARD, msg => this.onPlayerUseCard(msg));
     },
 
     init: function (player) {
@@ -262,11 +263,44 @@ let ServerMessageModule = cc.Class({
 
     onPlayerRobTargetBack: function(msg) {
         jkr.Logger.debug("onPlayerRobTargetBack success.", JSON.stringify(msg));
+        let robName = msg.robName;
+        let robbedName = msg.robbedName;
+        let sourceName = jkr.constant.sourceName[msg.sourceType];
+        let tip = robName + " 抢夺了 " + robbedName + " 的资源: [" + sourceName + " x 1]";
+        jkr.gameScene.delayTask(() => {
+            jkr.gameScene.showTipsItemRender(tip, 0.8);
+        }, 0.3);
+
         if (msg.roleIndex !== jkr.player.getMyRoleIndex()) {
             return;
         }
         jkr.gameScene.hidePlayerRobOtherPopUp();
         jkr.player.addSelfResource(msg.sourceType, 1);
         jkr.player.refreshResourceView();
+    },
+
+    onPlayerUseCard: function(msg) {
+        jkr.Logger.debug("onPlayerUseCard success.", JSON.stringify(msg));
+        if (msg.roleIndex === jkr.player.getMyRoleIndex()) {
+            return;
+        }
+        let roleData = jkr.player.getRoleData(msg.roleIndex);
+        let cardName = "";
+        switch (msg.cardType) {
+            case jkr.constant.SkillType.soldier:
+                cardName = "士兵";
+                break;
+            case jkr.constant.SkillType.goodHarvest:
+                cardName = "丰收之年";
+                break;
+            case jkr.constant.SkillType.roadBuilding:
+                cardName = "道路建设";
+                break;
+            case jkr.constant.SkillType.monopoly:
+                cardName = "垄断";
+                break;
+        }
+        let tip = roleData.roleName + " 使用了 [" + cardName + "]";
+        jkr.gameScene.showTipsItemRender(tip, 0.3);
     },
 });

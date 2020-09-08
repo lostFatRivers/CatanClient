@@ -40,7 +40,6 @@ cc.Class({
         this.cardNumLabel.string = roleData.sourceCardNum + "";
         this.skillNumLabel.string = roleData.skillCardNum + "";
         this.robNumLabel.string = roleData.robTimes + "";
-        // 需要改
         this.roadNumLabel.string = roleData.roadLength + "";
         this.scoreNumLabel.string = roleData.totalScore + "";
 

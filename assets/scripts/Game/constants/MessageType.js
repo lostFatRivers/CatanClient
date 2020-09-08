@@ -115,5 +115,9 @@ jkr.messageType = {
     // 使用技能卡
     CS_USE_SKILL_CARD: 1058,
     SC_USE_SKILL_CARD: 1059,
+
+    // 获取技能卡
+    CS_GET_SKILL_CARD: 1060,
+    SC_GET_SKILL_CARD: 1061,
 };
 
